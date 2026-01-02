@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sampan Pawnshop and Jewelry - Complete Inventory & Transaction System</title>
+    <title>Sampan Pawn Shop - Complete Management System with Remate Tracking</title>
     <style>
+        /* KEEP ALL YOUR CSS STYLES HERE - THEY ARE CORRECT */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
             background-color: #f5f7fa;
             color: #333;
             padding: 20px;
             line-height: 1.6;
         }
+        
         .container {
             max-width: 1600px;
             margin: 0 auto;
         }
+        
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -32,61 +36,61 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+        
         h1 {
             color: white;
             margin-bottom: 10px;
             font-size: 2.2rem;
         }
+        
         .shop-name {
             color: #f39c12;
             font-weight: bold;
             font-size: 1.4em;
             margin-bottom: 15px;
         }
-        .nav-tabs {
+        
+        .subtitle {
+            color: #ecf0f1;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        
+        .date-section {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
             justify-content: center;
-        }
-        .nav-tab {
-            padding: 10px 20px;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
             background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
+            padding: 15px;
+            border-radius: 8px;
         }
-        .nav-tab.active {
-            background: #f39c12;
+        
+        .date-box {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 600;
             color: #2c3e50;
-            font-weight: bold;
         }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        
         .dashboard-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
             margin-bottom: 25px;
         }
+        
         .dashboard-card {
             background: white;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
+        
         .card-title {
             font-size: 1.2rem;
             color: #2c3e50;
@@ -97,12 +101,14 @@
             align-items: center;
             gap: 10px;
         }
+        
         .main-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 30px;
         }
+        
         .section {
             background: white;
             border-radius: 10px;
@@ -110,6 +116,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             height: fit-content;
         }
+        
         .section-title {
             font-size: 1.3rem;
             color: #2c3e50;
@@ -120,9 +127,35 @@
             justify-content: space-between;
             align-items: center;
         }
+        
+        .cash-section {
+            border-top: 4px solid #3498db;
+        }
+        
+        .items-section {
+            border-top: 4px solid #9b59b6;
+        }
+        
+        .prenda-section {
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .gold-section {
+            border-top: 4px solid #f1c40f;
+        }
+        
+        .sold-section {
+            border-top: 4px solid #2ecc71;
+        }
+        
+        .remate-section {
+            border-top: 4px solid #e67e22;
+        }
+        
         .form-group {
             margin-bottom: 15px;
         }
+        
         label {
             display: block;
             margin-bottom: 5px;
@@ -149,7 +182,7 @@
         .table-container {
             overflow-x: auto;
             margin-top: 15px;
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
         }
         
@@ -234,6 +267,7 @@
             background-color: #138496;
         }
         
+        /* NEW STATUS STYLES */
         .status-active {
             background: #2ecc71;
             color: white;
@@ -245,6 +279,15 @@
         
         .status-expired {
             background: #f39c12;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        
+        .status-renewed {
+            background: #9b59b6;
             color: white;
             padding: 3px 10px;
             border-radius: 3px;
@@ -270,6 +313,24 @@
             display: inline-block;
         }
         
+        .status-auctioned {
+            background: #e67e22;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        
+        .status-sold {
+            background: #95a5a6;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        
         .positive {
             color: #2ecc71;
             font-weight: bold;
@@ -280,6 +341,30 @@
             font-weight: bold;
         }
         
+        .transaction-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 40px;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: end;
+        }
+        
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        
         .summary-item {
             display: flex;
             justify-content: space-between;
@@ -288,123 +373,51 @@
             border-bottom: 1px solid #f0f0f0;
         }
         
-        .search-box {
-            margin-bottom: 20px;
+        .summary-label {
+            font-weight: 600;
+            color: #555;
         }
         
-        .search-box input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
+        .summary-value {
+            font-weight: 700;
+            font-size: 1.1rem;
         }
         
-        .data-actions {
+        .cash-in {
+            color: #2ecc71;
+        }
+        
+        .cash-out {
+            color: #e74c3c;
+        }
+        
+        .actions {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .export-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .inventory-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        
-        .alert {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-        }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-color: #bee5eb;
-        }
-        
-        .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-            border-color: #ffeeba;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
             justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
         
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
+        .tab-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
         }
         
-        .close-modal {
+        .tab-button {
+            padding: 10px 20px;
             background: none;
             border: none;
-            font-size: 1.5rem;
             cursor: pointer;
+            font-weight: 600;
             color: #7f8c8d;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
         }
         
         footer {
@@ -417,9 +430,9 @@
         }
         
         .small-btn {
-            padding: 5px 10px !important;
-            font-size: 0.8em !important;
-            margin: 2px !important;
+            padding: 4px 8px;
+            font-size: 0.8em;
+            margin: 2px;
         }
         
         @media print {
@@ -443,326 +456,432 @@
 <body>
     <div class="container">
         <header>
-            <h1>Sampan Pawn Shop Management System</h1>
-            <div class="shop-name">📊 Complete Inventory & Transaction Tracking</div>
+            <h1>Pawn Shop Management System</h1>
+            <div class="shop-name">Sampan Pawn Shop</div>
+            <div class="subtitle">Complete Daily Operations Tracking with Remate System</div>
             
-            <div class="nav-tabs">
-                <div class="nav-tab active" onclick="showTab('daily')">📅 Daily Operations</div>
-                <div class="nav-tab" onclick="showTab('inventory')">📦 Inventory Management</div>
-                <div class="nav-tab" onclick="showTab('transactions')">💼 Transaction History</div>
-                <div class="nav-tab" onclick="showTab('customers')">👥 Customer Database</div>
-                <div class="nav-tab" onclick="showTab('reports')">📊 Reports & Analytics</div>
-                <div class="nav-tab" onclick="showTab('data')">💾 Data Management</div>
+            <div class="date-section">
+                <div class="date-box">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" value="">
+                </div>
+                <div class="date-box">
+                    <label for="prepared-by">Prepared By:</label>
+                    <input type="text" id="prepared-by" placeholder="Staff Name">
+                </div>
             </div>
         </header>
         
-        <!-- Daily Operations Tab -->
-        <div id="daily-tab" class="tab-content active">
-            <div class="dashboard-container">
-                <div class="dashboard-card">
-                    <div class="card-title">📊 Today's Overview</div>
-                    <div class="summary-item">
-                        <span>Date:</span>
-                        <strong id="current-date"></strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Active Pawns:</span>
-                        <strong id="active-pawns-today">0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Expiring Today:</span>
-                        <strong class="negative" id="expiring-today">0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Today's Cash Flow:</span>
-                        <strong id="today-cash-flow">₱0.00</strong>
-                    </div>
+        <!-- Dashboard -->
+        <div class="dashboard-container">
+            <div class="dashboard-card">
+                <div class="card-title">📊 Quick Stats</div>
+                <div class="summary-item">
+                    <span>Active Pawns:</span>
+                    <strong id="active-pawns">0</strong>
                 </div>
-                
-                <div class="dashboard-card">
-                    <div class="card-title">⚡ Quick Actions</div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <button class="btn btn-warning" onclick="showModal('new-pawn-modal')">📝 New Pawn</button>
-                        <button class="btn btn-success" onclick="showModal('lukat-modal')">💵 Process Lukat</button>
-                        <button class="btn btn-danger" onclick="showModal('remate-modal')">⚖️ Process Remate</button>
-                        <button class="btn btn-primary" onclick="showModal('renew-modal')">🔄 Renew</button>
-                    </div>
+                <div class="summary-item">
+                    <span>Expired Items:</span>
+                    <strong class="negative" id="expired-pawns">0</strong>
                 </div>
-                
-                <div class="dashboard-card">
-                    <div class="card-title">💰 Cash Position</div>
-                    <div class="summary-item">
-                        <span>Opening Balance:</span>
-                        <strong>₱<input type="number" id="opening-balance" value="10000" style="width: 120px; border: none; text-align: right; font-weight: bold;"></strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Cash In Today:</span>
-                        <strong class="positive" id="cash-in-today">₱0.00</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Cash Out Today:</span>
-                        <strong class="negative" id="cash-out-today">₱0.00</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Closing Balance:</span>
-                        <strong id="closing-balance">₱10,000.00</strong>
-                    </div>
+                <div class="summary-item">
+                    <span>Today's Lukat:</span>
+                    <strong class="positive" id="today-lukat">₱0.00</strong>
+                </div>
+                <div class="summary-item">
+                    <span>Today's Remate:</span>
+                    <strong class="negative" id="today-remate">₱0.00</strong>
                 </div>
             </div>
             
-            <div class="main-container">
-                <!-- Today's Transactions -->
-                <div class="section">
+            <div class="dashboard-card">
+                <div class="card-title">💰 Cash Position</div>
+                <div class="summary-item">
+                    <span>Opening Balance:</span>
+                    <strong>₱<input type="number" id="opening-balance" value="5000" style="width: 120px; border: none; text-align: right; font-weight: bold;"></strong>
+                </div>
+                <div class="summary-item">
+                    <span>Cash In Today:</span>
+                    <strong class="cash-in" id="dash-cash-in">₱0.00</strong>
+                </div>
+                <div class="summary-item">
+                    <span>Cash Out Today:</span>
+                    <strong class="cash-out" id="dash-cash-out">₱0.00</strong>
+                </div>
+                <div class="summary-item" style="border-top: 2px solid #ddd; padding-top: 10px;">
+                    <span>Closing Balance:</span>
+                    <strong id="dash-closing-bal">₱5,000.00</strong>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-title">⚡ Quick Actions</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn btn-primary" onclick="showSection('cash-flow')">💸 Cash Flow</button>
+                    <button class="btn btn-warning" onclick="showSection('prenda')">📝 New Pawn</button>
+                    <button class="btn btn-success" onclick="showSection('lukat')">💵 Process Lukat</button>
+                    <button class="btn btn-danger" onclick="showSection('remate')">⚖️ Process Remate</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Sections -->
+        <div class="main-container">
+            <!-- Left Column -->
+            <div>
+                <!-- Cash Flow Section -->
+                <div class="section cash-section" id="cash-flow-section">
                     <div class="section-title">
-                        <span>📋 Today's Transactions</span>
+                        <span>💸 Daily Cash Flow</span>
                     </div>
-                    <div class="table-container">
-                        <table id="today-transactions-table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Type</th>
-                                    <th>Code</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Transactions will be loaded here -->
-                            </tbody>
-                        </table>
+                    
+                    <div class="form-group">
+                        <label>Cash Inflows (Pumasok na Pera)</label>
+                        <div id="cash-in-container">
+                            <div class="transaction-row">
+                                <div>
+                                    <input type="text" class="cash-in-desc" value="Sales" placeholder="Description">
+                                </div>
+                                <div>
+                                    <input type="number" class="cash-in-amount" placeholder="Amount" value="0">
+                                </div>
+                                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                            </div>
+                            <div class="transaction-row">
+                                <div>
+                                    <input type="text" class="cash-in-desc" value="Renew" placeholder="Description">
+                                </div>
+                                <div>
+                                    <input type="number" class="cash-in-amount" placeholder="Amount" value="0">
+                                </div>
+                                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="addCashInRow()">+ Add Cash In</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Cash Outflows (Labas na Pera)</label>
+                        <div id="cash-out-container">
+                            <div class="transaction-row">
+                                <div>
+                                    <input type="text" class="cash-out-desc" value="Expenses" placeholder="Description">
+                                </div>
+                                <div>
+                                    <input type="number" class="cash-out-amount" placeholder="Amount" value="0">
+                                </div>
+                                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                            </div>
+                            <div class="transaction-row">
+                                <div>
+                                    <input type="text" class="cash-out-desc" value="Prenda" placeholder="Description">
+                                </div>
+                                <div>
+                                    <input type="number" class="cash-out-amount" placeholder="Amount" value="0">
+                                </div>
+                                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="addCashOutRow()">+ Add Cash Out</button>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span>Total Cash In:</span>
+                        <strong class="cash-in" id="total-cash-in">₱0.00</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Cash Out:</span>
+                        <strong class="cash-out" id="total-cash-out">₱0.00</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Net Cash Flow:</span>
+                        <strong id="net-cash-flow">₱0.00</strong>
                     </div>
                 </div>
                 
-                <!-- Items Needing Attention -->
-                <div class="section">
+                <!-- New Pawn Item Section -->
+                <div class="section prenda-section" id="prenda-section">
                     <div class="section-title">
-                        <span>⚠️ Items Needing Attention</span>
+                        <span>📝 New Pawn Item (Prenda)</span>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Item Code</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="item-code-prefix" value="P-" style="width: 80px;" readonly>
+                            <input type="text" id="item-code-suffix" value="001" style="width: 80px;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Name/Description</label>
+                        <input type="text" id="item-name" placeholder="e.g., Gold Ring, Laptop, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Type</label>
+                        <select id="item-type">
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Appliances">Appliances</option>
+                            <option value="Tools">Tools</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Weight (grams)</label>
+                            <input type="number" id="item-weight" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Karat (for gold)</label>
+                            <input type="number" id="item-karat" placeholder="e.g., 18, 24">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Pawn Amount (₱)</label>
+                            <input type="number" id="pawn-amount" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Term (Days)</label>
+                            <select id="pawn-term">
+                                <option value="30">30 days</option>
+                                <option value="60">60 days</option>
+                                <option value="90">90 days</option>
+                                <option value="120">120 days</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <input type="text" id="customer-name" placeholder="Customer Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" id="customer-contact" placeholder="09XXXXXXXXX">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-warning" style="width: 100%; padding: 12px;" onclick="addPawnItem()">
+                        ✅ Add Pawn Item
+                    </button>
+                </div>
+                
+                <!-- Lukat (Redemption) Section -->
+                <div class="section items-section" id="lukat-section">
+                    <div class="section-title">
+                        <span>💵 Process Lukat (Redemption)</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pawn Item Code</label>
+                        <input type="text" id="lukat-item-code" placeholder="Enter pawn item code">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="lukat-customer-name" placeholder="Customer Name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Original Pawn Amount (₱)</label>
+                        <input type="number" id="lukat-original-amount" placeholder="0.00" step="0.01" readonly>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Interest Rate (%)</label>
+                            <select id="lukat-interest-rate">
+                                <option value="5">5%</option>
+                                <option value="7">7%</option>
+                                <option value="10">10%</option>
+                                <option value="15">15%</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Total to Pay (₱)</label>
+                            <input type="number" id="lukat-total-amount" placeholder="0.00" step="0.01" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea id="lukat-remarks" placeholder="Additional notes..." rows="2"></textarea>
+                    </div>
+                    
+                    <button class="btn btn-success" style="width: 100%; padding: 12px;" onclick="processLukat()">
+                        💵 Process Lukat (Redemption)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div>
+                <!-- Pawn Items Management Tabs -->
+                <div class="section prenda-section">
+                    <div class="section-title">
+                        <span>📋 Pawn Items Management</span>
+                        <div class="tab-buttons">
+                            <button class="tab-button active" onclick="showPawnTab('active')">Active</button>
+                            <button class="tab-button" onclick="showPawnTab('expired')">Expired</button>
+                            <button class="tab-button" onclick="showPawnTab('redeemed')">Redeemed</button>
+                            <button class="tab-button" onclick="showPawnTab('foreclosed')">Foreclosed</button>
+                            <button class="tab-button" onclick="showPawnTab('all')">All</button>
+                        </div>
+                    </div>
+                    
                     <div class="table-container">
-                        <table id="attention-items-table">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Code</th>
                                     <th>Item</th>
+                                    <th>Amount</th>
                                     <th>Status</th>
                                     <th>Due Date</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Items will be loaded here -->
+                            <tbody id="pawn-items-body">
+                                <!-- Pawn items will be loaded here -->
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 20px; color: #7f8c8d;">
+                                        No pawn items yet
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Inventory Management Tab -->
-        <div id="inventory-tab" class="tab-content">
-            <div class="inventory-stats">
-                <div class="stat-card">
-                    <div class="stat-label">Total Items</div>
-                    <div class="stat-value" id="total-items">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Active Pawns</div>
-                    <div class="stat-value" id="inventory-active">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Foreclosed Items</div>
-                    <div class="stat-value" id="foreclosed-items">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Value</div>
-                    <div class="stat-value" id="total-value">₱0.00</div>
-                </div>
-            </div>
-            
-            <div class="search-box">
-                <input type="text" id="inventory-search" placeholder="🔍 Search items by code, name, or customer..." onkeyup="searchInventory()">
-            </div>
-            
-            <div class="section">
-                <div class="section-title">
-                    <span>📦 Complete Inventory</span>
-                    <select id="inventory-filter" onchange="filterInventory()">
-                        <option value="all">All Items</option>
-                        <option value="active">Active Pawns</option>
-                        <option value="expired">Expired</option>
-                        <option value="redeemed">Redeemed</option>
-                        <option value="foreclosed">Foreclosed</option>
-                        <option value="auctioned">Auctioned</option>
-                    </select>
-                </div>
-                <div class="table-container">
-                    <table id="inventory-table">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Item</th>
-                                <th>Type</th>
-                                <th>Customer</th>
-                                <th>Pawn Amount</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Inventory items will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Transaction History Tab -->
-        <div id="transactions-tab" class="tab-content">
-            <div class="section">
-                <div class="section-title">
-                    <span>💼 All Transactions</span>
-                    <div>
-                        <input type="date" id="transactions-date" onchange="loadTransactions()">
-                        <select id="transactions-type" onchange="loadTransactions()">
-                            <option value="all">All Types</option>
-                            <option value="pawn">New Pawn</option>
-                            <option value="renew">Renewal</option>
-                            <option value="lukat">Lukat</option>
-                            <option value="remate">Remate</option>
-                            <option value="sale">Sale</option>
+                
+                <!-- Remate (Foreclosure) Section -->
+                <div class="section remate-section" id="remate-section">
+                    <div class="section-title">
+                        <span>⚖️ Process Remate (Foreclosure)</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pawn Item Code</label>
+                        <input type="text" id="remate-item-code" placeholder="Enter expired pawn item code">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="remate-item-name" placeholder="Item description">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Original Pawn Amount (₱)</label>
+                            <input type="number" id="remate-original-amount" placeholder="0.00" step="0.01" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Days Overdue</label>
+                            <input type="number" id="remate-days-overdue" placeholder="0" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Remate Type</label>
+                        <select id="remate-type">
+                            <option value="auction">Auction Sale</option>
+                            <option value="direct">Direct Sale</option>
+                            <option value="inventory">Add to Inventory</option>
                         </select>
                     </div>
-                </div>
-                <div class="table-container">
-                    <table id="transactions-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Type</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Customer</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- All transactions will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Customer Database Tab -->
-        <div id="customers-tab" class="tab-content">
-            <div class="section">
-                <div class="section-title">
-                    <span>👥 Customer Database</span>
-                    <button class="btn btn-primary" onclick="showModal('new-customer-modal')">+ Add Customer</button>
-                </div>
-                <div class="search-box">
-                    <input type="text" id="customer-search" placeholder="🔍 Search customers by name or contact..." onkeyup="searchCustomers()">
-                </div>
-                <div class="table-container">
-                    <table id="customers-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>Address</th>
-                                <th>Active Pawns</th>
-                                <th>Total Transactions</th>
-                                <th>Last Visit</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Customers will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Reports & Analytics Tab -->
-        <div id="reports-tab" class="tab-content">
-            <div class="dashboard-container">
-                <div class="dashboard-card">
-                    <div class="card-title">📈 Financial Reports</div>
-                    <button class="btn btn-primary" onclick="generateFinancialReport()" style="width: 100%; margin-bottom: 10px;">Generate Financial Report</button>
-                    <button class="btn btn-success" onclick="generateInventoryReport()" style="width: 100%; margin-bottom: 10px;">Generate Inventory Report</button>
-                    <button class="btn btn-warning" onclick="generateRemateReport()" style="width: 100%;">Generate Remate Report</button>
-                </div>
-                
-                <div class="dashboard-card">
-                    <div class="card-title">📅 Date Range Reports</div>
+                    
                     <div class="form-group">
-                        <label>From Date</label>
-                        <input type="date" id="report-from-date">
+                        <label>Sale Price (₱)</label>
+                        <input type="number" id="remate-sale-price" placeholder="0.00" step="0.01">
                     </div>
+                    
                     <div class="form-group">
-                        <label>To Date</label>
-                        <input type="date" id="report-to-date">
+                        <label>Remate Remarks</label>
+                        <textarea id="remate-remarks" placeholder="Remate details..." rows="2"></textarea>
                     </div>
-                    <button class="btn btn-info" onclick="generateDateRangeReport()" style="width: 100%;">Generate Custom Report</button>
+                    
+                    <button class="btn btn-danger" style="width: 100%; padding: 12px;" onclick="processRemate()">
+                        ⚖️ Process Remate (Foreclosure)
+                    </button>
                 </div>
-            </div>
-            
-            <div class="section">
-                <div class="section-title">
-                    <span>📊 Report Results</span>
-                </div>
-                <div id="report-results" style="min-height: 400px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
-                    <div style="text-align: center; color: #7f8c8d;">
-                        Select a report to generate
+                
+                <!-- Sold Items Section -->
+                <div class="section sold-section" id="sold-section">
+                    <div class="section-title">
+                        <span>💰 Record Sold Item</span>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Sale Code</label>
+                        <input type="text" id="sold-item-code" value="S-" placeholder="S-001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="sold-item-name" placeholder="Item description">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Type</label>
+                        <select id="sold-item-type">
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Appliances">Appliances</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Weight (grams)</label>
+                            <input type="number" id="sold-weight" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Karat</label>
+                            <input type="number" id="sold-karat" placeholder="e.g., 18, 24">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sale Price (₱)</label>
+                        <input type="number" id="sale-price" placeholder="0.00" step="0.01">
+                    </div>
+                    
+                    <button class="btn btn-danger" style="width: 100%; padding: 12px;" onclick="addNewSoldItem()">
+                        💰 Record Sale
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- Data Management Tab -->
-        <div id="data-tab" class="tab-content">
-            <div class="section">
-                <div class="section-title">
-                    <span>💾 Data Management & GitHub Backup</span>
-                </div>
-                
-                <div class="alert alert-success" id="data-status">
-                    Data is stored locally in your browser
-                </div>
-                
-                <div class="data-actions">
-                    <button class="btn btn-primary" onclick="backupData()">💾 Backup All Data</button>
-                    <button class="btn btn-warning" onclick="showModal('restore-modal')">📥 Restore Data</button>
-                    <button class="btn btn-danger" onclick="clearOldData()">🗑️ Clear Old Data</button>
-                </div>
-                
-                <div class="export-options">
-                    <button class="btn btn-success" onclick="exportToJSON()">📤 Export to JSON</button>
-                    <button class="btn btn-info" onclick="exportToCSV()">📊 Export to CSV</button>
-                    <button class="btn btn-warning" onclick="printAllData()">🖨️ Print Summary</button>
-                    <button class="btn btn-danger" onclick="showModal('import-modal')">📥 Import Data</button>
-                </div>
-                
-                <div class="table-container" style="margin-top: 20px;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Data Type</th>
-                                <th>Records</th>
-                                <th>Last Updated</th>
-                                <th>File Size</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data-stats-table">
-                            <!-- Data stats will be loaded here -->
-                        </tbody>
-                    </table>
+        <!-- Reports Section -->
+        <div class="dashboard-card" style="margin-top: 30px;">
+            <div class="card-title">📊 Daily Report with Remate Tracking</div>
+            <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="generateDailyReport()">
+                    📋 Generate Daily Report
+                </button>
+                <button class="btn btn-success" onclick="generateRemateReport()">
+                    ⚖️ Generate Remate Report
+                </button>
+                <button class="btn btn-warning" onclick="checkExpirations()">
+                    ⚠️ Check Expirations
+                </button>
+                <button class="btn btn-danger" onclick="printReport()">
+                    🖨️ Print Report
+                </button>
+                <button class="btn btn-danger" onclick="clearTodayData()">
+                    🗑️ Clear Today's Data
+                </button>
+            </div>
+            <div id="report-results" style="min-height: 100px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+                <div style="text-align: center; color: #7f8c8d;">
+                    Click "Generate Daily Report" to view today's summary
                 </div>
             </div>
         </div>
@@ -770,1275 +889,148 @@
         <footer>
             <p>Sampan Pawn Shop Management System &copy; <span id="current-year"></span></p>
             <p style="margin-top: 10px; font-size: 0.9em; color: #95a5a6;">
-                Data is stored locally in your browser. Regular backups are recommended.
+                All data is stored locally in your browser. Export data regularly for backup.
             </p>
         </footer>
     </div>
     
-    <!-- Modals -->
-    <div id="new-pawn-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>📝 New Pawn Item</h3>
-                <button class="close-modal" onclick="closeModal('new-pawn-modal')">×</button>
-            </div>
-            <div id="new-pawn-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="lukat-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>💵 Process Lukat (Redemption)</h3>
-                <button class="close-modal" onclick="closeModal('lukat-modal')">×</button>
-            </div>
-            <div id="lukat-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="remate-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>⚖️ Process Remate (Foreclosure)</h3>
-                <button class="close-modal" onclick="closeModal('remate-modal')">×</button>
-            </div>
-            <div id="remate-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="renew-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>🔄 Renew Pawn Item</h3>
-                <button class="close-modal" onclick="closeModal('renew-modal')">×</button>
-            </div>
-            <div id="renew-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="new-customer-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>👥 Add New Customer</h3>
-                <button class="close-modal" onclick="closeModal('new-customer-modal')">×</button>
-            </div>
-            <div id="new-customer-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="restore-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>📥 Restore Data</h3>
-                <button class="close-modal" onclick="closeModal('restore-modal')">×</button>
-            </div>
-            <div id="restore-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <div id="import-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>📥 Import Data</h3>
-                <button class="close-modal" onclick="closeModal('import-modal')">×</button>
-            </div>
-            <div id="import-form">
-                <!-- Form will be loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
     <!-- JavaScript -->
     <script>
-        // ==================== DATA STORAGE STRUCTURE ====================
-        const DATA_STRUCTURE = {
-            version: "2.0",
-            lastBackup: null,
-            data: {
-                // Core data
-                pawnItems: [],          // All pawn items with full history
-                customers: [],          // Customer database
-                transactions: [],       // All financial transactions
-                inventory: [],          // Current inventory (foreclosed items)
-                
-                // Additional tracking
-                dailyLogs: [],          // Daily operation logs
-                settings: {             // System settings
-                    shopName: "Sampan Pawn Shop",
-                    interestRate: 5,
-                    termDays: 30,
-                    backupFrequency: "daily"
-                }
-            }
-        };
+        // ==================== DATA STORAGE ====================
+        let pawnItems = JSON.parse(localStorage.getItem('pawnItems')) || [];
+        let renewTransactions = JSON.parse(localStorage.getItem('renewTransactions')) || [];
+        let soldItems = JSON.parse(localStorage.getItem('soldItems')) || [];
+        let goldPurchases = JSON.parse(localStorage.getItem('goldPurchases')) || [];
+        let silverPurchases = JSON.parse(localStorage.getItem('silverPurchases')) || [];
+        let cashInTransactions = JSON.parse(localStorage.getItem('cashInTransactions')) || [];
+        let cashOutTransactions = JSON.parse(localStorage.getItem('cashOutTransactions')) || [];
+        let lukatTransactions = JSON.parse(localStorage.getItem('lukatTransactions')) || [];
+        let remateTransactions = JSON.parse(localStorage.getItem('remateTransactions')) || [];
 
         // ==================== INITIALIZATION ====================
-        let systemData = initializeSystemData();
-        let currentDate = new Date().toISOString().split('T')[0];
-        
-        function initializeSystemData() {
-            // Try to load from localStorage
-            const savedData = localStorage.getItem('pawnshopData');
-            
-            if (savedData) {
-                try {
-                    const parsed = JSON.parse(savedData);
-                    // Check if data structure needs migration
-                    if (parsed.version !== DATA_STRUCTURE.version) {
-                        return migrateData(parsed);
-                    }
-                    return parsed;
-                } catch (e) {
-                    console.error('Error parsing saved data:', e);
-                    return createSampleData();
-                }
-            } else {
-                return createSampleData();
-            }
-        }
-
-        function createSampleData() {
-            // Initialize with sample data for demonstration
-            const newData = JSON.parse(JSON.stringify(DATA_STRUCTURE));
-            newData.lastBackup = new Date().toISOString();
-            
-            // Add sample customers
-            newData.data.customers = [
-                {
-                    id: "CUST-001",
-                    name: "Juan Dela Cruz",
-                    contact: "09171234567",
-                    email: "juan@example.com",
-                    address: "123 Main St, Manila",
-                    idType: "Driver's License",
-                    idNumber: "DL123456",
-                    createdAt: currentDate,
-                    totalTransactions: 3,
-                    totalAmount: 25000,
-                    lastVisit: currentDate,
-                    notes: ""
-                },
-                {
-                    id: "CUST-002",
-                    name: "Maria Santos",
-                    contact: "09221234567",
-                    email: "maria@example.com",
-                    address: "456 Oak St, Quezon City",
-                    idType: "Passport",
-                    idNumber: "PP789012",
-                    createdAt: currentDate,
-                    totalTransactions: 2,
-                    totalAmount: 15000,
-                    lastVisit: currentDate,
-                    notes: ""
-                }
-            ];
-            
-            // Add sample pawn items
-            const expiryDate1 = addDays(currentDate, 30);
-            const expiryDate2 = addDays(currentDate, 15);
-            
-            newData.data.pawnItems = [
-                {
-                    id: "P-001",
-                    itemCode: "P-001",
-                    itemName: "Gold Ring 18k",
-                    itemType: "Jewelry",
-                    weight: 10.5,
-                    karat: 18,
-                    pawnAmount: 15000,
-                    termDays: 30,
-                    customerId: "CUST-001",
-                    customerName: "Juan Dela Cruz",
-                    pawnDate: currentDate,
-                    expiryDate: expiryDate1,
-                    status: "Active",
-                    isRemate: false,
-                    renewalCount: 0,
-                    remarks: "With certificate",
-                    transactionHistory: []
-                },
-                {
-                    id: "P-002",
-                    itemCode: "P-002",
-                    itemName: "iPhone 13 Pro",
-                    itemType: "Electronics",
-                    pawnAmount: 20000,
-                    termDays: 30,
-                    customerId: "CUST-002",
-                    customerName: "Maria Santos",
-                    pawnDate: currentDate,
-                    expiryDate: expiryDate2,
-                    status: "Active",
-                    isRemate: false,
-                    renewalCount: 0,
-                    remarks: "256GB, space gray",
-                    transactionHistory: []
-                },
-                {
-                    id: "P-003",
-                    itemCode: "P-003",
-                    itemName: "Laptop Dell XPS",
-                    itemType: "Electronics",
-                    pawnAmount: 30000,
-                    termDays: 30,
-                    customerId: "CUST-001",
-                    customerName: "Juan Dela Cruz",
-                    pawnDate: addDays(currentDate, -10),
-                    expiryDate: addDays(currentDate, -5),
-                    status: "Expired",
-                    isRemate: false,
-                    renewalCount: 0,
-                    remarks: "16GB RAM, 512GB SSD",
-                    transactionHistory: []
-                }
-            ];
-            
-            // Add sample transactions
-            newData.data.transactions = [
-                {
-                    id: "TXN-001",
-                    date: currentDate,
-                    time: "09:30",
-                    type: "pawn",
-                    code: "P-001",
-                    description: "New Pawn - Gold Ring",
-                    amount: 15000,
-                    customerId: "CUST-001",
-                    customerName: "Juan Dela Cruz",
-                    status: "completed"
-                },
-                {
-                    id: "TXN-002",
-                    date: currentDate,
-                    time: "10:15",
-                    type: "pawn",
-                    code: "P-002",
-                    description: "New Pawn - iPhone",
-                    amount: 20000,
-                    customerId: "CUST-002",
-                    customerName: "Maria Santos",
-                    status: "completed"
-                },
-                {
-                    id: "TXN-003",
-                    date: addDays(currentDate, -10),
-                    time: "14:20",
-                    type: "pawn",
-                    code: "P-003",
-                    description: "New Pawn - Laptop",
-                    amount: 30000,
-                    customerId: "CUST-001",
-                    customerName: "Juan Dela Cruz",
-                    status: "completed"
-                }
-            ];
-            
-            // Initialize empty inventory
-            newData.data.inventory = [];
-            
-            saveSystemData(newData);
-            return newData;
-        }
-        
-        function migrateData(oldData) {
-            // Simple migration logic
-            const newData = JSON.parse(JSON.stringify(DATA_STRUCTURE));
-            
-            // Migrate old data to new structure
-            if (oldData.data && oldData.data.pawnItems) newData.data.pawnItems = oldData.data.pawnItems;
-            if (oldData.data && oldData.data.customers) newData.data.customers = oldData.data.customers;
-            if (oldData.data && oldData.data.transactions) newData.data.transactions = oldData.data.transactions;
-            if (oldData.data && oldData.data.inventory) newData.data.inventory = oldData.data.inventory;
-            
-            // Handle old structure
-            if (oldData.pawnItems && !oldData.data) newData.data.pawnItems = oldData.pawnItems;
-            if (oldData.customers && !oldData.data) newData.data.customers = oldData.customers;
-            if (oldData.transactions && !oldData.data) newData.data.transactions = oldData.transactions;
-            
-            newData.lastBackup = oldData.lastBackup || new Date().toISOString();
-            saveSystemData(newData);
-            return newData;
-        }
-        
-        function saveSystemData(data) {
-            systemData = data;
-            localStorage.setItem('pawnshopData', JSON.stringify(data, null, 2));
-            updateDataStats();
-        }
-        
-        function addDays(dateString, days) {
-            const date = new Date(dateString);
-            date.setDate(date.getDate() + days);
-            return date.toISOString().split('T')[0];
-        }
-        
-        // ==================== UI INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', function() {
-            // Set current date
-            document.getElementById('current-date').textContent = formatDateForDisplay(currentDate);
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+            
+            // Set current year
             document.getElementById('current-year').textContent = new Date().getFullYear();
             
-            // Set default report dates
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('report-from-date').value = addDays(today, -30);
-            document.getElementById('report-to-date').value = today;
-            document.getElementById('transactions-date').value = today;
+            // Load all data
+            loadPawnItems('active');
+            loadDashboard();
+            calculateTotals();
             
-            // Load initial data
-            loadDailyOverview();
-            loadTodayTransactions();
-            loadAttentionItems();
-            loadInventory();
-            loadCustomers();
-            updateDataStats();
-            
-            // Setup auto-save
-            setInterval(autoSave, 30000);
+            // Setup event listeners
+            setupEventListeners();
             
             // Check for expired items
-            checkExpiredItems();
+            setTimeout(checkExpirations, 1000);
+            
+            // Auto-calculate totals
+            setInterval(calculateTotals, 1000);
         });
-        
-        function formatDateForDisplay(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-        
-        // ==================== TAB MANAGEMENT ====================
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+
+        // ==================== PAWN ITEMS MANAGEMENT ====================
+        function addPawnItem() {
+            const itemCode = document.getElementById('item-code-prefix').value + 
+                            document.getElementById('item-code-suffix').value;
+            const itemName = document.getElementById('item-name').value;
+            const itemType = document.getElementById('item-type').value;
+            const weight = document.getElementById('item-weight').value;
+            const karat = document.getElementById('item-karat').value;
+            const pawnAmount = document.getElementById('pawn-amount').value;
+            const termDays = document.getElementById('pawn-term').value;
+            const customerName = document.getElementById('customer-name').value;
+            const contact = document.getElementById('customer-contact').value;
             
-            // Remove active class from all tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
-            
-            // Refresh data for the tab
-            switch(tabName) {
-                case 'daily':
-                    loadDailyOverview();
-                    loadTodayTransactions();
-                    loadAttentionItems();
-                    break;
-                case 'inventory':
-                    loadInventory();
-                    break;
-                case 'transactions':
-                    loadTransactions();
-                    break;
-                case 'customers':
-                    loadCustomers();
-                    break;
-                case 'reports':
-                    // Do nothing, wait for user action
-                    break;
-                case 'data':
-                    updateDataStats();
-                    break;
-            }
-        }
-        
-        // ==================== MODAL MANAGEMENT ====================
-        function showModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-            loadModalContent(modalId);
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        function loadModalContent(modalId) {
-            const formContainer = document.getElementById(modalId.replace('-modal', '-form'));
-            
-            switch(modalId) {
-                case 'new-pawn-modal':
-                    formContainer.innerHTML = `
-                        <div class="form-group">
-                            <label>Customer</label>
-                            <select id="pawn-customer" onchange="loadCustomerDetails()">
-                                <option value="">Select Customer</option>
-                                ${systemData.data.customers.map(c => 
-                                    `<option value="${c.id}">${c.name} (${c.id})</option>`
-                                ).join('')}
-                            </select>
-                            <button class="btn btn-warning" onclick="showModal('new-customer-modal')" style="margin-top: 5px; width: 100%;">
-                                + New Customer
-                            </button>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Item Code</label>
-                            <input type="text" id="pawn-item-code" value="P-" placeholder="P-001">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Item Name/Description</label>
-                            <input type="text" id="pawn-item-name" placeholder="e.g., Gold Ring, Laptop, etc.">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Item Type</label>
-                            <select id="pawn-item-type">
-                                <option value="Jewelry">Jewelry</option>
-                                <option value="Electronics">Electronics</option>
-                                <option value="Appliances">Appliances</option>
-                                <option value="Tools">Tools</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="form-group">
-                                <label>Weight (grams)</label>
-                                <input type="number" id="pawn-weight" placeholder="0.00" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Karat (for gold)</label>
-                                <input type="number" id="pawn-karat" placeholder="e.g., 18, 24">
-                            </div>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="form-group">
-                                <label>Pawn Amount (₱)</label>
-                                <input type="number" id="pawn-amount" placeholder="0.00" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Term (Days)</label>
-                                <select id="pawn-term">
-                                    <option value="30">30 days</option>
-                                    <option value="60">60 days</option>
-                                    <option value="90">90 days</option>
-                                    <option value="120">120 days</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Remarks</label>
-                            <textarea id="pawn-remarks" placeholder="Additional notes..." rows="3"></textarea>
-                        </div>
-                        
-                        <button class="btn btn-warning" style="width: 100%; padding: 12px;" onclick="processNewPawn()">
-                            ✅ Add Pawn Item
-                        </button>
-                    `;
-                    break;
-                    
-                case 'lukat-modal':
-                    const activeItems = systemData.data.pawnItems.filter(item => 
-                        item.status === 'Active' || item.status === 'Expired'
-                    );
-                    
-                    formContainer.innerHTML = `
-                        <div class="form-group">
-                            <label>Select Pawn Item</label>
-                            <select id="lukat-item-select" onchange="loadLukatDetails()">
-                                <option value="">Select Item</option>
-                                ${activeItems.map(item => 
-                                    `<option value="${item.id}">${item.itemCode} - ${item.itemName} (₱${item.pawnAmount.toFixed(2)})</option>`
-                                ).join('')}
-                            </select>
-                        </div>
-                        
-                        <div id="lukat-details">
-                            <!-- Details will be loaded here -->
-                        </div>
-                        
-                        <button class="btn btn-success" style="width: 100%; padding: 12px;" onclick="processLukat()" id="process-lukat-btn" disabled>
-                            💵 Process Lukat
-                        </button>
-                    `;
-                    break;
-                    
-                case 'remate-modal':
-                    const expiredItems = systemData.data.pawnItems.filter(item => 
-                        item.status === 'Expired'
-                    );
-                    
-                    formContainer.innerHTML = `
-                        <div class="form-group">
-                            <label>Select Expired Item</label>
-                            <select id="remate-item-select" onchange="loadRemateDetails()">
-                                <option value="">Select Item</option>
-                                ${expiredItems.map(item => 
-                                    `<option value="${item.id}">${item.itemCode} - ${item.itemName} (Expired: ${item.expiryDate})</option>`
-                                ).join('')}
-                            </select>
-                        </div>
-                        
-                        <div id="remate-details">
-                            <!-- Details will be loaded here -->
-                        </div>
-                        
-                        <button class="btn btn-danger" style="width: 100%; padding: 12px;" onclick="processRemate()" id="process-remate-btn" disabled>
-                            ⚖️ Process Remate
-                        </button>
-                    `;
-                    break;
-                    
-                case 'new-customer-modal':
-                    formContainer.innerHTML = `
-                        <div class="form-group">
-                            <label>Customer ID</label>
-                            <input type="text" id="customer-id" value="CUST-" placeholder="CUST-001">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="customer-name" placeholder="Juan Dela Cruz">
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="form-group">
-                                <label>Contact Number</label>
-                                <input type="text" id="customer-contact" placeholder="09171234567">
-                            </div>
-                            <div class="form-group">
-                                <label>Email (Optional)</label>
-                                <input type="email" id="customer-email" placeholder="email@example.com">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea id="customer-address" placeholder="Full address..." rows="3"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Valid ID Type</label>
-                            <select id="customer-id-type">
-                                <option value="Driver's License">Driver's License</option>
-                                <option value="Passport">Passport</option>
-                                <option value="SSS/GSIS">SSS/GSIS</option>
-                                <option value="Postal ID">Postal ID</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>ID Number</label>
-                            <input type="text" id="customer-id-number" placeholder="ID Number">
-                        </div>
-                        
-                        <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="addNewCustomer()">
-                            ✅ Add Customer
-                        </button>
-                    `;
-                    break;
-            }
-        }
-        
-        function loadCustomerDetails() {
-            const customerId = document.getElementById('pawn-customer').value;
-            if (customerId) {
-                const customer = systemData.data.customers.find(c => c.id === customerId);
-                // You can pre-fill customer details here if needed
-            }
-        }
-        
-        function loadLukatDetails() {
-            const itemId = document.getElementById('lukat-item-select').value;
-            const btn = document.getElementById('process-lukat-btn');
-            
-            if (itemId) {
-                const item = systemData.data.pawnItems.find(i => i.id === itemId);
-                if (item) {
-                    const daysOverdue = calculateDaysOverdue(item.expiryDate);
-                    const interestRate = 5; // Default 5% interest
-                    const interestAmount = item.pawnAmount * (interestRate / 100);
-                    const totalAmount = item.pawnAmount + interestAmount;
-                    
-                    document.getElementById('lukat-details').innerHTML = `
-                        <div class="form-group">
-                            <label>Item: <strong>${item.itemName}</strong></label>
-                        </div>
-                        <div class="form-group">
-                            <label>Customer: <strong>${item.customerName}</strong></label>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="form-group">
-                                <label>Original Amount</label>
-                                <input type="text" value="₱${item.pawnAmount.toFixed(2)}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Days ${daysOverdue > 0 ? 'Overdue' : 'Remaining'}</label>
-                                <input type="text" value="${Math.abs(daysOverdue)} days" readonly class="${daysOverdue > 0 ? 'negative' : 'positive'}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Interest Rate (%)</label>
-                            <select id="lukat-interest-rate">
-                                <option value="5" ${daysOverdue <= 0 ? 'selected' : ''}>5% (On time)</option>
-                                <option value="7" ${daysOverdue > 0 && daysOverdue <= 7 ? 'selected' : ''}>7% (1-7 days late)</option>
-                                <option value="10" ${daysOverdue > 7 ? 'selected' : ''}>10% (8+ days late)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Total to Pay (₱)</label>
-                            <input type="number" id="lukat-total" value="${totalAmount.toFixed(2)}" readonly style="font-weight: bold; font-size: 1.1em;">
-                        </div>
-                        <div class="form-group">
-                            <label>Payment Method</label>
-                            <select id="lukat-payment-method">
-                                <option value="cash">Cash</option>
-                                <option value="gcash">GCash</option>
-                                <option value="bank">Bank Transfer</option>
-                            </select>
-                        </div>
-                    `;
-                    btn.disabled = false;
-                    
-                    // Update total when interest rate changes
-                    document.getElementById('lukat-interest-rate').addEventListener('change', function() {
-                        const newRate = parseFloat(this.value);
-                        const newTotal = item.pawnAmount + (item.pawnAmount * (newRate / 100));
-                        document.getElementById('lukat-total').value = newTotal.toFixed(2);
-                    });
-                }
-            } else {
-                document.getElementById('lukat-details').innerHTML = '';
-                btn.disabled = true;
-            }
-        }
-        
-        function loadRemateDetails() {
-            const itemId = document.getElementById('remate-item-select').value;
-            const btn = document.getElementById('process-remate-btn');
-            
-            if (itemId) {
-                const item = systemData.data.pawnItems.find(i => i.id === itemId);
-                if (item) {
-                    const daysOverdue = calculateDaysOverdue(item.expiryDate);
-                    const suggestedPrice = item.pawnAmount * 1.5; // 50% markup
-                    
-                    document.getElementById('remate-details').innerHTML = `
-                        <div class="form-group">
-                            <label>Item: <strong>${item.itemName}</strong></label>
-                        </div>
-                        <div class="form-group">
-                            <label>Customer: <strong>${item.customerName}</strong></label>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="form-group">
-                                <label>Pawn Amount</label>
-                                <input type="text" value="₱${item.pawnAmount.toFixed(2)}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Days Overdue</label>
-                                <input type="text" value="${daysOverdue} days" readonly class="negative">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Remate Type</label>
-                            <select id="remate-type">
-                                <option value="auction">Auction Sale</option>
-                                <option value="direct">Direct Sale</option>
-                                <option value="inventory">Add to Inventory</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Sale Price (₱)</label>
-                            <input type="number" id="remate-price" value="${suggestedPrice.toFixed(2)}" step="0.01" placeholder="Sale price">
-                        </div>
-                        <div class="form-group">
-                            <label>Buyer Information (if sold)</label>
-                            <input type="text" id="remate-buyer" placeholder="Buyer name (optional)">
-                        </div>
-                        <div class="form-group">
-                            <label>Remarks</label>
-                            <textarea id="remate-remarks" placeholder="Remate details..." rows="3"></textarea>
-                        </div>
-                    `;
-                    btn.disabled = false;
-                }
-            } else {
-                document.getElementById('remate-details').innerHTML = '';
-                btn.disabled = true;
-            }
-        }
-        
-        function calculateDaysOverdue(expiryDate) {
-            const today = new Date(currentDate);
-            const expiry = new Date(expiryDate);
-            const diffTime = expiry - today;
-            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        }
-        
-        // ==================== CORE BUSINESS LOGIC ====================
-        function processNewPawn() {
-            const customerId = document.getElementById('pawn-customer').value;
-            const itemCode = document.getElementById('pawn-item-code').value;
-            const itemName = document.getElementById('pawn-item-name').value;
-            const itemType = document.getElementById('pawn-item-type').value;
-            const weight = parseFloat(document.getElementById('pawn-weight').value) || 0;
-            const karat = parseInt(document.getElementById('pawn-karat').value) || 0;
-            const pawnAmount = parseFloat(document.getElementById('pawn-amount').value);
-            const termDays = parseInt(document.getElementById('pawn-term').value);
-            const remarks = document.getElementById('pawn-remarks').value;
-            
-            if (!customerId || !itemCode || !itemName || !pawnAmount) {
-                alert('Please fill in all required fields');
+            if (!itemName || !pawnAmount) {
+                alert('Please fill in Item Name and Pawn Amount');
                 return;
             }
             
-            const customer = systemData.data.customers.find(c => c.id === customerId);
-            if (!customer) {
-                alert('Customer not found');
-                return;
-            }
+            // Calculate expiry date
+            const pawnDate = new Date();
+            const expiryDate = new Date(pawnDate);
+            expiryDate.setDate(expiryDate.getDate() + parseInt(termDays));
             
-            // Check if item code already exists
-            if (systemData.data.pawnItems.some(item => item.itemCode === itemCode)) {
-                alert('Item code already exists. Please use a different code.');
-                return;
-            }
-            
-            // Create new pawn item
             const newItem = {
-                id: itemCode,
+                id: Date.now(),
                 itemCode: itemCode,
                 itemName: itemName,
                 itemType: itemType,
-                weight: weight,
-                karat: karat,
-                pawnAmount: pawnAmount,
-                termDays: termDays,
-                customerId: customerId,
-                customerName: customer.name,
-                pawnDate: currentDate,
-                expiryDate: addDays(currentDate, termDays),
-                status: "Active",
-                isRemate: false,
-                renewalCount: 0,
-                remarks: remarks,
-                transactionHistory: []
-            };
-            
-            // Add to pawn items
-            systemData.data.pawnItems.push(newItem);
-            
-            // Create transaction record
-            const transaction = {
-                id: 'TXN-' + Date.now(),
-                date: currentDate,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                type: 'pawn',
-                code: itemCode,
-                description: `New Pawn - ${itemName}`,
-                amount: pawnAmount,
-                customerId: customerId,
-                customerName: customer.name,
-                status: 'completed'
-            };
-            
-            systemData.data.transactions.push(transaction);
-            
-            // Update customer stats
-            customer.totalTransactions = (customer.totalTransactions || 0) + 1;
-            customer.totalAmount = (customer.totalAmount || 0) + pawnAmount;
-            customer.lastVisit = currentDate;
-            
-            // Save data
-            saveSystemData(systemData);
-            
-            // Update cash position (cash out)
-            updateCashPosition(-pawnAmount);
-            
-            // Close modal and refresh UI
-            closeModal('new-pawn-modal');
-            loadDailyOverview();
-            loadTodayTransactions();
-            loadAttentionItems();
-            loadInventory();
-            
-            alert(`Pawn item added successfully!\nCode: ${itemCode}\nAmount: ₱${pawnAmount.toFixed(2)}\nExpiry: ${newItem.expiryDate}`);
-        }
-        
-        function processLukat() {
-            const itemId = document.getElementById('lukat-item-select').value;
-            const interestRate = parseFloat(document.getElementById('lukat-interest-rate').value);
-            const paymentMethod = document.getElementById('lukat-payment-method').value;
-            
-            if (!itemId) {
-                alert('Please select an item');
-                return;
-            }
-            
-            const item = systemData.data.pawnItems.find(i => i.id === itemId);
-            if (!item) {
-                alert('Item not found');
-                return;
-            }
-            
-            // Calculate total amount
-            const interestAmount = item.pawnAmount * (interestRate / 100);
-            const totalAmount = item.pawnAmount + interestAmount;
-            
-            if (!confirm(`Process Lukat for ${item.itemCode}?\n\nPrincipal: ₱${item.pawnAmount.toFixed(2)}\nInterest (${interestRate}%): ₱${interestAmount.toFixed(2)}\nTotal: ₱${totalAmount.toFixed(2)}`)) {
-                return;
-            }
-            
-            // Update item status
-            item.status = "Redeemed";
-            item.redemptionDate = currentDate;
-            item.redemptionAmount = totalAmount;
-            
-            // Add to transaction history
-            item.transactionHistory.push({
-                date: currentDate,
-                type: 'lukat',
-                amount: totalAmount,
-                interestRate: interestRate
-            });
-            
-            // Create transaction record
-            const transaction = {
-                id: 'TXN-' + Date.now(),
-                date: currentDate,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                type: 'lukat',
-                code: item.itemCode,
-                description: `Lukat - ${item.itemName}`,
-                amount: totalAmount,
-                customerId: item.customerId,
-                customerName: item.customerName,
-                interestRate: interestRate,
-                paymentMethod: paymentMethod,
-                status: 'completed'
-            };
-            
-            systemData.data.transactions.push(transaction);
-            
-            // Update customer stats
-            const customer = systemData.data.customers.find(c => c.id === item.customerId);
-            if (customer) {
-                customer.totalTransactions = (customer.totalTransactions || 0) + 1;
-                customer.lastVisit = currentDate;
-            }
-            
-            // Update cash position (cash in)
-            updateCashPosition(totalAmount);
-            
-            // Save data
-            saveSystemData(systemData);
-            
-            // Close modal and refresh UI
-            closeModal('lukat-modal');
-            loadDailyOverview();
-            loadTodayTransactions();
-            loadAttentionItems();
-            loadInventory();
-            
-            alert(`Lukat processed successfully!\nTotal received: ₱${totalAmount.toFixed(2)}`);
-        }
-        
-        function processRemate() {
-            const itemId = document.getElementById('remate-item-select').value;
-            const remateType = document.getElementById('remate-type').value;
-            const salePrice = parseFloat(document.getElementById('remate-price').value);
-            const buyer = document.getElementById('remate-buyer').value;
-            const remarks = document.getElementById('remate-remarks').value;
-            
-            if (!itemId) {
-                alert('Please select an item');
-                return;
-            }
-            
-            const item = systemData.data.pawnItems.find(i => i.id === itemId);
-            if (!item) {
-                alert('Item not found');
-                return;
-            }
-            
-            if (remateType !== 'inventory' && (!salePrice || salePrice <= 0)) {
-                alert('Please enter a valid sale price');
-                return;
-            }
-            
-            if (!confirm(`Process Remate for ${item.itemCode}?\n\nType: ${remateType}\nSale Price: ₱${salePrice.toFixed(2)}\nProfit: ₱${(salePrice - item.pawnAmount).toFixed(2)}`)) {
-                return;
-            }
-            
-            // Update item based on remate type
-            if (remateType === 'inventory') {
-                item.status = "Foreclosed";
-                item.remateDate = currentDate;
-                item.inventoryValue = salePrice || item.pawnAmount;
-                
-                // Add to inventory
-                systemData.data.inventory.push({
-                    id: item.id,
-                    itemCode: item.itemCode,
-                    itemName: item.itemName,
-                    itemType: item.itemType,
-                    pawnAmount: item.pawnAmount,
-                    inventoryValue: salePrice || item.pawnAmount,
-                    dateAdded: currentDate,
-                    status: 'in_inventory'
-                });
-            } else {
-                item.status = "Auctioned";
-                item.remateDate = currentDate;
-                item.salePrice = salePrice;
-                item.saleBuyer = buyer;
-                item.saleProfit = salePrice - item.pawnAmount;
-            }
-            
-            item.isRemate = true;
-            item.remateType = remateType;
-            item.remateRemarks = remarks;
-            
-            // Add to transaction history
-            item.transactionHistory.push({
-                date: currentDate,
-                type: 'remate',
-                remateType: remateType,
-                amount: salePrice,
-                buyer: buyer
-            });
-            
-            // Create transaction record
-            const transaction = {
-                id: 'TXN-' + Date.now(),
-                date: currentDate,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                type: 'remate',
-                code: item.itemCode,
-                description: `Remate (${remateType}) - ${item.itemName}`,
-                amount: salePrice,
-                customerId: item.customerId,
-                customerName: item.customerName,
-                remateType: remateType,
-                profit: salePrice - item.pawnAmount,
-                status: 'completed'
-            };
-            
-            systemData.data.transactions.push(transaction);
-            
-            // Update cash position if sold
-            if (remateType !== 'inventory') {
-                updateCashPosition(salePrice);
-            }
-            
-            // Save data
-            saveSystemData(systemData);
-            
-            // Close modal and refresh UI
-            closeModal('remate-modal');
-            loadDailyOverview();
-            loadTodayTransactions();
-            loadAttentionItems();
-            loadInventory();
-            
-            alert(`Remate processed successfully!\nItem status: ${item.status}`);
-        }
-        
-        function addNewCustomer() {
-            const customerId = document.getElementById('customer-id').value;
-            const name = document.getElementById('customer-name').value;
-            const contact = document.getElementById('customer-contact').value;
-            const email = document.getElementById('customer-email').value;
-            const address = document.getElementById('customer-address').value;
-            const idType = document.getElementById('customer-id-type').value;
-            const idNumber = document.getElementById('customer-id-number').value;
-            
-            if (!customerId || !name || !contact || !address || !idNumber) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            
-            // Check if customer ID already exists
-            if (systemData.data.customers.some(c => c.id === customerId)) {
-                alert('Customer ID already exists');
-                return;
-            }
-            
-            const newCustomer = {
-                id: customerId,
-                name: name,
+                weight: parseFloat(weight) || 0,
+                karat: parseInt(karat) || 0,
+                pawnAmount: parseFloat(pawnAmount),
+                termDays: parseInt(termDays),
+                customerName: customerName,
                 contact: contact,
-                email: email || '',
-                address: address,
-                idType: idType,
-                idNumber: idNumber,
-                createdAt: currentDate,
-                totalTransactions: 0,
-                totalAmount: 0,
-                lastVisit: currentDate,
-                notes: ''
+                pawnDate: pawnDate.toISOString().split('T')[0],
+                expiryDate: expiryDate.toISOString().split('T')[0],
+                status: 'Active',
+                isRemate: false,
+                remateDate: null,
+                redemptionDate: null,
+                redemptionAmount: null,
+                renewalCount: 0,
+                lastRenewalDate: null
             };
             
-            systemData.data.customers.push(newCustomer);
-            saveSystemData(systemData);
+            pawnItems.push(newItem);
+            localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+            loadPawnItems('active');
+            loadDashboard();
             
-            // Close modal
-            closeModal('new-customer-modal');
+            // Add to cash out
+            addToCashOut('Prenda - ' + itemCode, pawnAmount);
             
-            // Update customer dropdown in new pawn modal
-            const customerSelect = document.getElementById('pawn-customer');
-            if (customerSelect) {
-                const option = document.createElement('option');
-                option.value = newCustomer.id;
-                option.textContent = `${newCustomer.name} (${newCustomer.id})`;
-                customerSelect.appendChild(option);
-            }
+            // Clear form
+            document.getElementById('item-name').value = '';
+            document.getElementById('item-weight').value = '';
+            document.getElementById('item-karat').value = '';
+            document.getElementById('pawn-amount').value = '';
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-contact').value = '';
             
-            // Refresh customers tab
-            loadCustomers();
+            // Increment item code
+            const currentSuffix = parseInt(document.getElementById('item-code-suffix').value) || 1;
+            document.getElementById('item-code-suffix').value = (currentSuffix + 1).toString().padStart(3, '0');
             
-            alert('Customer added successfully!');
+            alert('Pawn item added successfully! Expiry: ' + expiryDate.toISOString().split('T')[0]);
         }
-        
-        // ==================== DATA LOADING FUNCTIONS ====================
-        function loadDailyOverview() {
-            const today = currentDate;
+
+        function loadPawnItems(filter = 'active') {
+            const tbody = document.getElementById('pawn-items-body');
             
-            // Count active pawns
-            const activePawns = systemData.data.pawnItems.filter(item => 
-                item.status === 'Active'
-            ).length;
+            let filteredItems = [];
             
-            // Count items expiring today
-            const expiringToday = systemData.data.pawnItems.filter(item => 
-                item.status === 'Active' && item.expiryDate === today
-            ).length;
-            
-            // Calculate today's cash flow
-            const todayTransactions = systemData.data.transactions.filter(t => 
-                t.date === today
-            );
-            
-            const cashIn = todayTransactions
-                .filter(t => t.type === 'lukat' || t.type === 'remate' || t.type === 'sale')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const cashOut = todayTransactions
-                .filter(t => t.type === 'pawn')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const cashFlow = cashIn - cashOut;
-            
-            // Update UI
-            document.getElementById('active-pawns-today').textContent = activePawns;
-            document.getElementById('expiring-today').textContent = expiringToday;
-            document.getElementById('today-cash-flow').textContent = `₱${cashFlow.toFixed(2)}`;
-            document.getElementById('today-cash-flow').className = cashFlow >= 0 ? 'positive' : 'negative';
-            
-            // Update cash position
-            document.getElementById('cash-in-today').textContent = `₱${cashIn.toFixed(2)}`;
-            document.getElementById('cash-out-today').textContent = `₱${cashOut.toFixed(2)}`;
-            
-            const openingBalance = parseFloat(document.getElementById('opening-balance').value) || 0;
-            const closingBalance = openingBalance + cashFlow;
-            document.getElementById('closing-balance').textContent = `₱${closingBalance.toFixed(2)}`;
-        }
-        
-        function loadTodayTransactions() {
-            const today = currentDate;
-            const tbody = document.getElementById('today-transactions-table').querySelector('tbody');
-            const todayTransactions = systemData.data.transactions
-                .filter(t => t.date === today)
-                .sort((a, b) => {
-                    // Sort by time if available, otherwise by date
-                    if (a.time && b.time) {
-                        return a.time.localeCompare(b.time);
-                    }
-                    return 0;
-                });
-            
-            tbody.innerHTML = '';
-            
-            if (todayTransactions.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px; color: #7f8c8d;">
-                            No transactions today
-                        </td>
-                    </tr>
-                `;
-                return;
+            switch(filter) {
+                case 'active':
+                    filteredItems = pawnItems.filter(item => item.status === 'Active');
+                    break;
+                case 'expired':
+                    filteredItems = pawnItems.filter(item => item.status === 'Expired');
+                    break;
+                case 'redeemed':
+                    filteredItems = pawnItems.filter(item => item.status === 'Redeemed');
+                    break;
+                case 'foreclosed':
+                    filteredItems = pawnItems.filter(item => item.status === 'Foreclosed');
+                    break;
+                case 'all':
+                    filteredItems = pawnItems;
+                    break;
+                default:
+                    filteredItems = pawnItems.filter(item => item.status === 'Active');
             }
-            
-            todayTransactions.forEach(transaction => {
-                const row = document.createElement('tr');
-                
-                // Determine transaction type icon
-                let typeIcon = '';
-                let typeClass = '';
-                switch(transaction.type) {
-                    case 'pawn':
-                        typeIcon = '📝';
-                        typeClass = 'negative';
-                        break;
-                    case 'lukat':
-                        typeIcon = '💵';
-                        typeClass = 'positive';
-                        break;
-                    case 'remate':
-                        typeIcon = '⚖️';
-                        typeClass = transaction.remateType === 'inventory' ? '' : 'positive';
-                        break;
-                    case 'renew':
-                        typeIcon = '🔄';
-                        typeClass = 'positive';
-                        break;
-                    case 'sale':
-                        typeIcon = '💰';
-                        typeClass = 'positive';
-                        break;
-                }
-                
-                row.innerHTML = `
-                    <td>${transaction.time || '--:--'}</td>
-                    <td>${typeIcon} ${transaction.type.toUpperCase()}</td>
-                    <td><strong>${transaction.code}</strong></td>
-                    <td>${transaction.description}</td>
-                    <td class="${typeClass}">${transaction.type === 'pawn' ? '-' : '+'}₱${transaction.amount.toFixed(2)}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function loadAttentionItems() {
-            const tbody = document.getElementById('attention-items-table').querySelector('tbody');
-            const today = new Date(currentDate);
-            
-            // Find items needing attention
-            const attentionItems = systemData.data.pawnItems.filter(item => {
-                if (item.status === 'Active') {
-                    const expiryDate = new Date(item.expiryDate);
-                    const daysUntilExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-                    return daysUntilExpiry <= 3; // Items expiring in 3 days or less
-                }
-                return item.status === 'Expired';
-            }).sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
-            
-            tbody.innerHTML = '';
-            
-            if (attentionItems.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px; color: #7f8c8d;">
-                            No items needing attention
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            attentionItems.forEach(item => {
-                const expiryDate = new Date(item.expiryDate);
-                const daysUntilExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-                
-                let statusText = '';
-                let statusClass = '';
-                let actionButton = '';
-                
-                if (item.status === 'Expired') {
-                    statusText = 'EXPIRED';
-                    statusClass = 'status-expired';
-                    actionButton = `<button class="btn btn-danger small-btn" onclick="showModal('remate-modal')">Remate</button>`;
-                } else if (daysUntilExpiry <= 0) {
-                    statusText = 'TODAY';
-                    statusClass = 'status-expired';
-                    actionButton = `<button class="btn btn-warning small-btn" onclick="showModal('renew-modal')">Renew</button>`;
-                } else {
-                    statusText = `${daysUntilExpiry} DAYS`;
-                    statusClass = daysUntilExpiry <= 2 ? 'status-expired' : 'status-active';
-                    actionButton = `<button class="btn btn-success small-btn" onclick="showModal('lukat-modal')">Lukat</button>`;
-                }
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${item.itemCode}</strong></td>
-                    <td>${item.itemName}</td>
-                    <td><span class="${statusClass}">${statusText}</span></td>
-                    <td>${item.expiryDate}</td>
-                    <td>${actionButton}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function loadInventory() {
-            // Update stats
-            const totalItems = systemData.data.pawnItems.length;
-            const activePawns = systemData.data.pawnItems.filter(item => item.status === 'Active').length;
-            const foreclosedItems = systemData.data.pawnItems.filter(item => item.status === 'Foreclosed').length;
-            const totalValue = systemData.data.pawnItems.reduce((sum, item) => sum + item.pawnAmount, 0);
-            
-            document.getElementById('total-items').textContent = totalItems;
-            document.getElementById('inventory-active').textContent = activePawns;
-            document.getElementById('foreclosed-items').textContent = foreclosedItems;
-            document.getElementById('total-value').textContent = `₱${totalValue.toFixed(2)}`;
-            
-            // Load inventory table
-            const tbody = document.getElementById('inventory-table').querySelector('tbody');
-            const filter = document.getElementById('inventory-filter').value;
-            const searchTerm = document.getElementById('inventory-search').value.toLowerCase();
-            
-            let filteredItems = systemData.data.pawnItems;
-            
-            // Apply filter
-            if (filter !== 'all') {
-                filteredItems = filteredItems.filter(item => {
-                    if (filter === 'active') return item.status === 'Active';
-                    if (filter === 'expired') return item.status === 'Expired';
-                    if (filter === 'redeemed') return item.status === 'Redeemed';
-                    if (filter === 'foreclosed') return item.status === 'Foreclosed';
-                    if (filter === 'auctioned') return item.status === 'Auctioned';
-                    return true;
-                });
-            }
-            
-            // Apply search
-            if (searchTerm) {
-                filteredItems = filteredItems.filter(item => 
-                    item.itemCode.toLowerCase().includes(searchTerm) ||
-                    item.itemName.toLowerCase().includes(searchTerm) ||
-                    item.customerName.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            // Sort by date (newest first)
-            filteredItems.sort((a, b) => new Date(b.pawnDate) - new Date(a.pawnDate));
             
             tbody.innerHTML = '';
             
             if (filteredItems.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 20px; color: #7f8c8d;">
-                            No items found
+                        <td colspan="6" style="text-align: center; padding: 20px; color: #7f8c8d;">
+                            No pawn items found
                         </td>
                     </tr>
                 `;
@@ -2046,424 +1038,710 @@
             }
             
             filteredItems.forEach(item => {
-                // Determine status badge
+                const row = document.createElement('tr');
+                
+                // Calculate days until expiry
+                const today = new Date();
+                const expiryDate = new Date(item.expiryDate);
+                const daysDiff = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+                
+                // Status badge
                 let statusBadge = '';
-                switch(item.status) {
-                    case 'Active':
-                        statusBadge = '<span class="status-active">ACTIVE</span>';
-                        break;
-                    case 'Expired':
-                        statusBadge = '<span class="status-expired">EXPIRED</span>';
-                        break;
-                    case 'Redeemed':
-                        statusBadge = '<span class="status-redeemed">REDEEMED</span>';
-                        break;
-                    case 'Foreclosed':
-                        statusBadge = '<span class="status-foreclosed">FORECLOSED</span>';
-                        break;
-                    case 'Auctioned':
-                        statusBadge = '<span class="status-foreclosed">AUCTIONED</span>';
-                        break;
+                if (item.status === 'Active') {
+                    statusBadge = daysDiff <= 3 ? 'status-expired' : 'status-active';
+                } else if (item.status === 'Expired') {
+                    statusBadge = 'status-expired';
+                } else if (item.status === 'Redeemed') {
+                    statusBadge = 'status-redeemed';
+                } else if (item.status === 'Foreclosed') {
+                    statusBadge = 'status-foreclosed';
+                } else if (item.status === 'Renewed') {
+                    statusBadge = 'status-renewed';
+                } else if (item.status === 'Auctioned') {
+                    statusBadge = 'status-auctioned';
+                } else if (item.status === 'Sold') {
+                    statusBadge = 'status-sold';
                 }
                 
-                const row = document.createElement('tr');
+                // Action buttons based on status
+                let actionButtons = '';
+                if (item.status === 'Active') {
+                    if (daysDiff <= 3) {
+                        actionButtons = `
+                            <button class="btn btn-warning small-btn" onclick="renewItem('${item.id}')">Renew</button>
+                            <button class="btn btn-danger small-btn" onclick="processRemateFromList('${item.id}')">Remate</button>
+                            <button class="btn btn-success small-btn" onclick="processLukatFromList('${item.id}')">Lukat</button>
+                        `;
+                    } else {
+                        actionButtons = `
+                            <button class="btn btn-success small-btn" onclick="processLukatFromList('${item.id}')">Lukat</button>
+                            <button class="btn btn-warning small-btn" onclick="renewItem('${item.id}')">Renew</button>
+                        `;
+                    }
+                } else if (item.status === 'Expired') {
+                    actionButtons = `
+                        <button class="btn btn-warning small-btn" onclick="renewItem('${item.id}')">Renew</button>
+                        <button class="btn btn-danger small-btn" onclick="processRemateFromList('${item.id}')">Remate</button>
+                    `;
+                } else if (item.status === 'Foreclosed') {
+                    actionButtons = `
+                        <button class="btn btn-info small-btn" onclick="sellForeclosedItem('${item.id}')">Sell</button>
+                    `;
+                }
+                
                 row.innerHTML = `
                     <td><strong>${item.itemCode}</strong></td>
-                    <td>${item.itemName} ${item.weight ? `(${item.weight}g)` : ''}</td>
-                    <td>${item.itemType}</td>
-                    <td>${item.customerName}</td>
+                    <td>${item.itemName} ${item.weight ? '(' + item.weight + 'g)' : ''}</td>
                     <td>₱${item.pawnAmount.toFixed(2)}</td>
-                    <td>${statusBadge}</td>
-                    <td>${item.pawnDate}</td>
-                    <td>
-                        <button class="btn btn-info small-btn" onclick="viewItemDetails('${item.id}')">View</button>
-                        ${item.status === 'Active' ? `
-                            <button class="btn btn-success small-btn" onclick="showModal('lukat-modal')">Lukat</button>
-                        ` : ''}
-                        ${item.status === 'Expired' ? `
-                            <button class="btn btn-danger small-btn" onclick="showModal('remate-modal')">Remate</button>
-                        ` : ''}
-                    </td>
+                    <td><span class="${statusBadge}">${item.status}</span></td>
+                    <td>${item.expiryDate} ${item.status === 'Active' ? `(${daysDiff} days)` : ''}</td>
+                    <td>${actionButtons}</td>
                 `;
                 tbody.appendChild(row);
             });
         }
-        
-        function searchInventory() {
-            loadInventory();
-        }
-        
-        function filterInventory() {
-            loadInventory();
-        }
-        
-        function loadTransactions() {
-            const dateFilter = document.getElementById('transactions-date').value;
-            const typeFilter = document.getElementById('transactions-type').value;
-            const tbody = document.getElementById('transactions-table').querySelector('tbody');
-            
-            let filteredTransactions = systemData.data.transactions;
-            
-            // Apply date filter
-            if (dateFilter) {
-                filteredTransactions = filteredTransactions.filter(t => t.date === dateFilter);
-            }
-            
-            // Apply type filter
-            if (typeFilter !== 'all') {
-                filteredTransactions = filteredTransactions.filter(t => t.type === typeFilter);
-            }
-            
-            // Sort by date (newest first)
-            filteredTransactions.sort((a, b) => {
-                if (a.date !== b.date) {
-                    return new Date(b.date) - new Date(a.date);
-                }
-                if (a.time && b.time) {
-                    return b.time.localeCompare(a.time);
-                }
-                return 0;
+
+        function showPawnTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
             });
+            event.target.classList.add('active');
             
-            tbody.innerHTML = '';
+            // Load items for selected tab
+            loadPawnItems(tabName);
+        }
+
+        // ==================== LUKAT (REDEMPTION) FUNCTIONS ====================
+        function processLukat() {
+            const itemCode = document.getElementById('lukat-item-code').value;
+            const customerName = document.getElementById('lukat-customer-name').value;
+            const interestRate = parseFloat(document.getElementById('lukat-interest-rate').value);
+            const remarks = document.getElementById('lukat-remarks').value;
             
-            if (filteredTransactions.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 20px; color: #7f8c8d;">
-                            No transactions found
-                        </td>
-                    </tr>
-                `;
+            // Find the item
+            const item = pawnItems.find(p => p.itemCode === itemCode && p.status === 'Active');
+            if (!item) {
+                alert('Item not found or not active!');
                 return;
             }
             
-            filteredTransactions.forEach(transaction => {
-                // Determine type icon
-                let typeIcon = '';
-                switch(transaction.type) {
-                    case 'pawn': typeIcon = '📝'; break;
-                    case 'lukat': typeIcon = '💵'; break;
-                    case 'remate': typeIcon = '⚖️'; break;
-                    case 'renew': typeIcon = '🔄'; break;
-                    case 'sale': typeIcon = '💰'; break;
+            if (item.customerName !== customerName) {
+                if (!confirm('Customer name does not match. Continue anyway?')) {
+                    return;
                 }
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${transaction.date} ${transaction.time ? transaction.time : ''}</td>
-                    <td>${typeIcon} ${transaction.type.toUpperCase()}</td>
-                    <td><strong>${transaction.code}</strong></td>
-                    <td>${transaction.description}</td>
-                    <td class="${transaction.type === 'pawn' ? 'negative' : 'positive'}">
-                        ${transaction.type === 'pawn' ? '-' : '+'}₱${transaction.amount.toFixed(2)}
-                    </td>
-                    <td>${transaction.customerName}</td>
-                    <td>
-                        <button class="btn btn-info small-btn" onclick="viewTransactionDetails('${transaction.id}')">
-                            Details
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function loadCustomers() {
-            const tbody = document.getElementById('customers-table').querySelector('tbody');
-            const searchTerm = document.getElementById('customer-search').value.toLowerCase();
-            
-            let filteredCustomers = systemData.data.customers;
-            
-            // Apply search
-            if (searchTerm) {
-                filteredCustomers = filteredCustomers.filter(customer =>
-                    customer.name.toLowerCase().includes(searchTerm) ||
-                    customer.contact.includes(searchTerm) ||
-                    customer.id.toLowerCase().includes(searchTerm)
-                );
             }
             
-            // Sort by last visit (most recent first)
-            filteredCustomers.sort((a, b) => new Date(b.lastVisit) - new Date(a.lastVisit));
+            // Calculate total amount
+            const interestAmount = item.pawnAmount * (interestRate / 100);
+            const totalAmount = item.pawnAmount + interestAmount;
             
-            tbody.innerHTML = '';
-            
-            if (filteredCustomers.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" style="text-align: center; padding: 20px; color: #7f8c8d;">
-                            No customers found
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            filteredCustomers.forEach(customer => {
-                // Count active pawns for this customer
-                const activePawns = systemData.data.pawnItems.filter(item => 
-                    item.customerId === customer.id && item.status === 'Active'
-                ).length;
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${customer.id}</strong></td>
-                    <td>${customer.name}</td>
-                    <td>${customer.contact}</td>
-                    <td>${customer.address.substring(0, 30)}${customer.address.length > 30 ? '...' : ''}</td>
-                    <td>${activePawns}</td>
-                    <td>${customer.totalTransactions || 0}</td>
-                    <td>${customer.lastVisit}</td>
-                    <td>
-                        <button class="btn btn-info small-btn" onclick="viewCustomerDetails('${customer.id}')">
-                            View
-                        </button>
-                        <button class="btn btn-primary small-btn" onclick="editCustomer('${customer.id}')">
-                            Edit
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function searchCustomers() {
-            loadCustomers();
-        }
-        
-        // ==================== REPORT FUNCTIONS ====================
-        function generateFinancialReport() {
-            const fromDate = document.getElementById('report-from-date').value;
-            const toDate = document.getElementById('report-to-date').value;
-            
-            if (!fromDate || !toDate) {
-                alert('Please select date range');
-                return;
-            }
-            
-            const filteredTransactions = systemData.data.transactions.filter(t => 
-                t.date >= fromDate && t.date <= toDate
-            );
-            
-            const summary = {
-                totalTransactions: filteredTransactions.length,
-                totalPawn: filteredTransactions.filter(t => t.type === 'pawn').reduce((sum, t) => sum + t.amount, 0),
-                totalLukat: filteredTransactions.filter(t => t.type === 'lukat').reduce((sum, t) => sum + t.amount, 0),
-                totalRemate: filteredTransactions.filter(t => t.type === 'remate').reduce((sum, t) => sum + t.amount, 0),
-                totalRenew: filteredTransactions.filter(t => t.type === 'renew').reduce((sum, t) => sum + t.amount, 0),
-                totalSale: filteredTransactions.filter(t => t.type === 'sale').reduce((sum, t) => sum + t.amount, 0),
-                
-                // Calculate profits
-                remateProfit: filteredTransactions.filter(t => t.type === 'remate').reduce((sum, t) => sum + (t.profit || 0), 0),
-                saleProfit: filteredTransactions.filter(t => t.type === 'sale').reduce((sum, t) => sum + (t.profit || 0), 0)
+            const lukatCode = 'L-' + Date.now().toString().slice(-6);
+            const newLukat = {
+                id: Date.now(),
+                lukatCode: lukatCode,
+                itemCode: item.itemCode,
+                itemName: item.itemName,
+                customerName: customerName,
+                pawnAmount: item.pawnAmount,
+                interestRate: interestRate,
+                interestAmount: interestAmount,
+                totalAmount: totalAmount,
+                remarks: remarks,
+                lukatDate: new Date().toISOString().split('T')[0]
             };
             
-            const netCashFlow = summary.totalLukat + summary.totalRemate + summary.totalRenew + summary.totalSale - summary.totalPawn;
+            // Update item status
+            item.status = 'Redeemed';
+            item.redemptionDate = new Date().toISOString().split('T')[0];
+            item.redemptionAmount = totalAmount;
+            
+            // Save data
+            lukatTransactions.push(newLukat);
+            localStorage.setItem('lukatTransactions', JSON.stringify(lukatTransactions));
+            localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+            
+            // Add to cash in
+            addToCashIn('Lukat - ' + item.itemCode, totalAmount);
+            
+            // Clear form
+            document.getElementById('lukat-item-code').value = '';
+            document.getElementById('lukat-customer-name').value = '';
+            document.getElementById('lukat-remarks').value = '';
+            
+            alert(`Lukat processed successfully!\nCode: ${lukatCode}\nTotal: ₱${totalAmount.toFixed(2)}`);
+            loadPawnItems('active');
+            loadDashboard();
+        }
+
+        function processLukatFromList(itemId) {
+            const item = pawnItems.find(p => p.id == itemId);
+            if (!item) return;
+            
+            // Fill the lukat form
+            document.getElementById('lukat-item-code').value = item.itemCode;
+            document.getElementById('lukat-customer-name').value = item.customerName;
+            document.getElementById('lukat-original-amount').value = item.pawnAmount;
+            
+            // Calculate total
+            const interestRate = parseFloat(document.getElementById('lukat-interest-rate').value);
+            const interestAmount = item.pawnAmount * (interestRate / 100);
+            const totalAmount = item.pawnAmount + interestAmount;
+            document.getElementById('lukat-total-amount').value = totalAmount.toFixed(2);
+            
+            // Scroll to lukat section
+            showSection('lukat');
+        }
+
+        // ==================== REMATE (FORECLOSURE) FUNCTIONS ====================
+        function processRemate() {
+            const itemCode = document.getElementById('remate-item-code').value;
+            const itemName = document.getElementById('remate-item-name').value;
+            const remateType = document.getElementById('remate-type').value;
+            const salePrice = parseFloat(document.getElementById('remate-sale-price').value) || 0;
+            const remarks = document.getElementById('remate-remarks').value;
+            
+            // Find the item (should be expired)
+            const item = pawnItems.find(p => p.itemCode === itemCode && (p.status === 'Expired' || p.status === 'Active'));
+            if (!item) {
+                alert('Item not found or not expired!');
+                return;
+            }
+            
+            // Calculate days overdue
+            const today = new Date();
+            const expiryDate = new Date(item.expiryDate);
+            const daysOverdue = Math.max(0, Math.ceil((today - expiryDate) / (1000 * 60 * 60 * 24)));
+            
+            const remateCode = 'RM-' + Date.now().toString().slice(-6);
+            const newRemate = {
+                id: Date.now(),
+                remateCode: remateCode,
+                itemCode: item.itemCode,
+                itemName: item.itemName,
+                customerName: item.customerName,
+                pawnAmount: item.pawnAmount,
+                remateType: remateType,
+                salePrice: salePrice,
+                profit: salePrice - item.pawnAmount,
+                daysOverdue: daysOverdue,
+                remarks: remarks,
+                remateDate: new Date().toISOString().split('T')[0]
+            };
+            
+            // Update item status
+            if (remateType === 'inventory') {
+                item.status = 'Foreclosed';
+                item.isRemate = true;
+                item.remateDate = new Date().toISOString().split('T')[0];
+            } else if (remateType === 'auction' || remateType === 'direct') {
+                item.status = 'Auctioned';
+                item.isRemate = true;
+                item.remateDate = new Date().toISOString().split('T')[0];
+                
+                // Add to sold items
+                const soldCode = 'AUCTION-' + Date.now().toString().slice(-6);
+                const newSale = {
+                    id: Date.now(),
+                    soldCode: soldCode,
+                    itemCode: item.itemCode,
+                    itemName: item.itemName,
+                    itemType: item.itemType,
+                    salePrice: salePrice,
+                    profit: salePrice - item.pawnAmount,
+                    isRemate: true,
+                    saleDate: new Date().toISOString().split('T')[0]
+                };
+                soldItems.push(newSale);
+                localStorage.setItem('soldItems', JSON.stringify(soldItems));
+                
+                // Add to cash in
+                addToCashIn('Remate Sale - ' + item.itemCode, salePrice);
+            }
+            
+            // Save data
+            remateTransactions.push(newRemate);
+            localStorage.setItem('remateTransactions', JSON.stringify(remateTransactions));
+            localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+            
+            // Clear form
+            document.getElementById('remate-item-code').value = '';
+            document.getElementById('remate-item-name').value = '';
+            document.getElementById('remate-sale-price').value = '';
+            document.getElementById('remate-remarks').value = '';
+            
+            alert(`Remate processed successfully!\nCode: ${remateCode}\nType: ${remateType}`);
+            loadPawnItems('expired');
+            loadDashboard();
+        }
+
+        function processRemateFromList(itemId) {
+            const item = pawnItems.find(p => p.id == itemId);
+            if (!item) return;
+            
+            // Calculate days overdue
+            const today = new Date();
+            const expiryDate = new Date(item.expiryDate);
+            const daysOverdue = Math.max(0, Math.ceil((today - expiryDate) / (1000 * 60 * 60 * 24)));
+            
+            // Fill the remate form
+            document.getElementById('remate-item-code').value = item.itemCode;
+            document.getElementById('remate-item-name').value = item.itemName;
+            document.getElementById('remate-original-amount').value = item.pawnAmount;
+            document.getElementById('remate-days-overdue').value = daysOverdue;
+            document.getElementById('remate-sale-price').value = (item.pawnAmount * 1.5).toFixed(2);
+            
+            // Scroll to remate section
+            showSection('remate');
+        }
+
+        function sellForeclosedItem(itemId) {
+            const item = pawnItems.find(p => p.id == itemId && p.status === 'Foreclosed');
+            if (!item) {
+                alert('Item not found or not foreclosed!');
+                return;
+            }
+            
+            const salePrice = prompt(`Enter sale price for ${item.itemCode} (${item.itemName}):`, 
+                                   (item.pawnAmount * 1.5).toFixed(2));
+            
+            if (salePrice && !isNaN(salePrice)) {
+                item.status = 'Auctioned';
+                
+                // Add to sold items
+                const soldCode = 'SALE-' + Date.now().toString().slice(-6);
+                const newSale = {
+                    id: Date.now(),
+                    soldCode: soldCode,
+                    itemCode: item.itemCode,
+                    itemName: item.itemName,
+                    itemType: item.itemType,
+                    salePrice: parseFloat(salePrice),
+                    profit: parseFloat(salePrice) - item.pawnAmount,
+                    isRemate: true,
+                    saleDate: new Date().toISOString().split('T')[0]
+                };
+                soldItems.push(newSale);
+                localStorage.setItem('soldItems', JSON.stringify(soldItems));
+                
+                // Add to cash in
+                addToCashIn('Foreclosed Sale - ' + item.itemCode, salePrice);
+                
+                localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+                alert('Foreclosed item sold!');
+                loadPawnItems('foreclosed');
+                loadDashboard();
+            }
+        }
+
+        // ==================== RENEW FUNCTION ====================
+        function renewItem(itemId) {
+            const item = pawnItems.find(p => p.id == itemId);
+            if (!item) return;
+            
+            // Calculate new expiry date (add term days)
+            const today = new Date();
+            const newExpiryDate = new Date(today);
+            newExpiryDate.setDate(newExpiryDate.getDate() + item.termDays);
+            
+            const renewAmount = prompt(`Enter renewal amount for ${item.itemCode} (${item.itemName}):\nOriginal: ₱${item.pawnAmount.toFixed(2)}\nNew expiry: ${newExpiryDate.toISOString().split('T')[0]}`, 
+                                     (item.pawnAmount * 0.05).toFixed(2));
+            
+            if (renewAmount && !isNaN(renewAmount)) {
+                const renewCode = 'REN-' + Date.now().toString().slice(-6);
+                const newRenew = {
+                    id: Date.now(),
+                    renewCode: renewCode,
+                    itemCode: item.itemCode,
+                    itemName: item.itemName,
+                    renewAmount: parseFloat(renewAmount),
+                    previousStatus: item.status,
+                    newExpiryDate: newExpiryDate.toISOString().split('T')[0],
+                    renewDate: new Date().toISOString().split('T')[0]
+                };
+                
+                renewTransactions.push(newRenew);
+                localStorage.setItem('renewTransactions', JSON.stringify(renewTransactions));
+                
+                // Update item
+                item.status = 'Active';
+                item.expiryDate = newExpiryDate.toISOString().split('T')[0];
+                item.renewalCount = (item.renewalCount || 0) + 1;
+                item.lastRenewalDate = new Date().toISOString().split('T')[0];
+                localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+                
+                // Add to cash in
+                addToCashIn('Renew - ' + item.itemCode, renewAmount);
+                
+                alert(`Renewal processed: ${renewCode}\nAmount: ₱${parseFloat(renewAmount).toFixed(2)}\nNew expiry: ${newExpiryDate.toISOString().split('T')[0]}`);
+                loadPawnItems('active');
+                loadDashboard();
+            }
+        }
+
+        // ==================== CHECK EXPIRATIONS ====================
+        function checkExpirations() {
+            const today = new Date().toISOString().split('T')[0];
+            let expiredCount = 0;
+            let expiringSoonCount = 0;
+            
+            pawnItems.forEach(item => {
+                if (item.status === 'Active' && item.expiryDate) {
+                    const expiryDate = new Date(item.expiryDate);
+                    const todayDate = new Date(today);
+                    const daysDiff = Math.ceil((expiryDate - todayDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysDiff < 0) {
+                        item.status = 'Expired';
+                        expiredCount++;
+                    } else if (daysDiff <= 3) {
+                        expiringSoonCount++;
+                    }
+                }
+            });
+            
+            if (expiredCount > 0) {
+                localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+                loadPawnItems('active');
+                alert(`⚠️ ${expiredCount} item(s) have expired and marked as "Expired"!\nCheck the Expired tab.`);
+            }
+            
+            if (expiringSoonCount > 0) {
+                console.log(`${expiringSoonCount} item(s) expiring in 3 days or less`);
+            }
+            
+            return expiredCount;
+        }
+
+        // ==================== CASH FLOW MANAGEMENT ====================
+        function addToCashIn(description, amount) {
+            const container = document.getElementById('cash-in-container');
+            const row = document.createElement('div');
+            row.className = 'transaction-row';
+            row.innerHTML = `
+                <div>
+                    <input type="text" class="cash-in-desc" value="${description}" readonly>
+                </div>
+                <div>
+                    <input type="number" class="cash-in-amount" value="${amount}" min="0" step="0.01">
+                </div>
+                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+            `;
+            container.appendChild(row);
+            
+            // Save to localStorage
+            cashInTransactions.push({ description, amount: parseFloat(amount) });
+            localStorage.setItem('cashInTransactions', JSON.stringify(cashInTransactions));
+            
+            calculateTotals();
+        }
+
+        function addToCashOut(description, amount) {
+            const container = document.getElementById('cash-out-container');
+            const row = document.createElement('div');
+            row.className = 'transaction-row';
+            row.innerHTML = `
+                <div>
+                    <input type="text" class="cash-out-desc" value="${description}" readonly>
+                </div>
+                <div>
+                    <input type="number" class="cash-out-amount" value="${amount}" min="0" step="0.01">
+                </div>
+                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+            `;
+            container.appendChild(row);
+            
+            // Save to localStorage
+            cashOutTransactions.push({ description, amount: parseFloat(amount) });
+            localStorage.setItem('cashOutTransactions', JSON.stringify(cashOutTransactions));
+            
+            calculateTotals();
+        }
+
+        function addCashInRow() {
+            const container = document.getElementById('cash-in-container');
+            const row = document.createElement('div');
+            row.className = 'transaction-row';
+            row.innerHTML = `
+                <div>
+                    <input type="text" class="cash-in-desc" placeholder="Description">
+                </div>
+                <div>
+                    <input type="number" class="cash-in-amount" placeholder="Amount" value="0">
+                </div>
+                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addCashOutRow() {
+            const container = document.getElementById('cash-out-container');
+            const row = document.createElement('div');
+            row.className = 'transaction-row';
+            row.innerHTML = `
+                <div>
+                    <input type="text" class="cash-out-desc" placeholder="Description">
+                </div>
+                <div>
+                    <input type="number" class="cash-out-amount" placeholder="Amount" value="0">
+                </div>
+                <button class="delete-btn" onclick="deleteRow(this)">×</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function deleteRow(button) {
+            if (confirm('Delete this transaction?')) {
+                button.closest('.transaction-row').remove();
+                calculateTotals();
+            }
+        }
+
+        function calculateTotals() {
+            // Calculate cash in
+            let totalCashIn = 0;
+            document.querySelectorAll('.cash-in-amount').forEach(input => {
+                totalCashIn += parseFloat(input.value) || 0;
+            });
+            
+            // Calculate cash out
+            let totalCashOut = 0;
+            document.querySelectorAll('.cash-out-amount').forEach(input => {
+                totalCashOut += parseFloat(input.value) || 0;
+            });
+            
+            // Get opening balance
+            const openingBalance = parseFloat(document.getElementById('opening-balance').value) || 0;
+            
+            // Calculate net cash flow and closing balance
+            const netCashFlow = totalCashIn - totalCashOut;
+            const closingBalance = openingBalance + netCashFlow;
+            
+            // Update display
+            document.getElementById('total-cash-in').textContent = '₱' + totalCashIn.toFixed(2);
+            document.getElementById('total-cash-out').textContent = '₱' + totalCashOut.toFixed(2);
+            document.getElementById('net-cash-flow').textContent = '₱' + netCashFlow.toFixed(2);
+            
+            // Update dashboard
+            document.getElementById('dash-cash-in').textContent = '₱' + totalCashIn.toFixed(2);
+            document.getElementById('dash-cash-out').textContent = '₱' + totalCashOut.toFixed(2);
+            document.getElementById('dash-closing-bal').textContent = '₱' + closingBalance.toFixed(2);
+            
+            // Update net cash flow color
+            const netElement = document.getElementById('net-cash-flow');
+            if (netCashFlow >= 0) {
+                netElement.className = 'positive';
+            } else {
+                netElement.className = 'negative';
+            }
+        }
+
+        // ==================== SOLD ITEMS MANAGEMENT ====================
+        function addNewSoldItem() {
+            const soldCode = document.getElementById('sold-item-code').value;
+            const itemName = document.getElementById('sold-item-name').value;
+            const itemType = document.getElementById('sold-item-type').value;
+            const weight = document.getElementById('sold-weight').value;
+            const karat = document.getElementById('sold-karat').value;
+            const salePrice = document.getElementById('sale-price').value;
+            
+            if (!itemName || !salePrice) {
+                alert('Please fill in Item Name and Sale Price');
+                return;
+            }
+            
+            const newSale = {
+                id: Date.now(),
+                soldCode: soldCode,
+                itemCode: 'DIRECT-' + Date.now().toString().slice(-6),
+                itemName: itemName,
+                itemType: itemType,
+                weight: weight,
+                karat: karat,
+                salePrice: parseFloat(salePrice),
+                profit: parseFloat(salePrice),
+                isRemate: false,
+                saleDate: new Date().toISOString().split('T')[0]
+            };
+            
+            soldItems.push(newSale);
+            localStorage.setItem('soldItems', JSON.stringify(soldItems));
+            
+            // Add to cash in
+            addToCashIn('Sold - ' + itemName, salePrice);
+            
+            // Clear form
+            document.getElementById('sold-item-code').value = 'S-';
+            document.getElementById('sold-item-name').value = '';
+            document.getElementById('sold-weight').value = '';
+            document.getElementById('sold-karat').value = '';
+            document.getElementById('sale-price').value = '';
+            
+            alert('Sale recorded successfully!');
+            loadDashboard();
+        }
+
+        // ==================== DASHBOARD FUNCTIONS ====================
+        function loadDashboard() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            const activePawns = pawnItems.filter(item => item.status === 'Active').length;
+            const expiredPawns = pawnItems.filter(item => item.status === 'Expired').length;
+            
+            // Today's lukat amount
+            const todayLukat = lukatTransactions
+                .filter(item => item.lukatDate === today)
+                .reduce((sum, item) => sum + item.totalAmount, 0);
+            
+            // Today's remate amount
+            const todayRemate = remateTransactions
+                .filter(item => item.remateDate === today && item.remateType !== 'inventory')
+                .reduce((sum, item) => sum + item.salePrice, 0);
+            
+            document.getElementById('active-pawns').textContent = activePawns;
+            document.getElementById('expired-pawns').textContent = expiredPawns;
+            document.getElementById('today-lukat').textContent = '₱' + todayLukat.toFixed(2);
+            document.getElementById('today-remate').textContent = '₱' + todayRemate.toFixed(2);
+        }
+
+        function showSection(sectionName) {
+            // Scroll to section
+            const sections = {
+                'cash-flow': 'cash-flow-section',
+                'prenda': 'prenda-section',
+                'lukat': 'lukat-section',
+                'remate': 'remate-section',
+                'sold': 'sold-section'
+            };
+            
+            const sectionId = sections[sectionName];
+            if (sectionId) {
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ==================== REPORT FUNCTIONS ====================
+        function generateDailyReport() {
+            const activePawns = pawnItems.filter(item => item.status === 'Active');
+            const expiredPawns = pawnItems.filter(item => item.status === 'Expired');
+            const today = new Date().toISOString().split('T')[0];
+            
+            let totalSales = soldItems
+                .filter(item => item.saleDate === today && !item.isRemate)
+                .reduce((sum, item) => sum + item.salePrice, 0);
+            
+            let totalRenewals = renewTransactions
+                .filter(item => item.renewDate === today)
+                .reduce((sum, item) => sum + item.renewAmount, 0);
+            
+            let totalLukat = lukatTransactions
+                .filter(item => item.lukatDate === today)
+                .reduce((sum, item) => sum + item.totalAmount, 0);
+            
+            let totalRemate = remateTransactions
+                .filter(item => item.remateDate === today && item.remateType !== 'inventory')
+                .reduce((sum, item) => sum + item.salePrice, 0);
+            
+            let totalCashIn = 0;
+            document.querySelectorAll('.cash-in-amount').forEach(input => {
+                totalCashIn += parseFloat(input.value) || 0;
+            });
+            
+            let totalCashOut = 0;
+            document.querySelectorAll('.cash-out-amount').forEach(input => {
+                totalCashOut += parseFloat(input.value) || 0;
+            });
+            
+            const openingBalance = parseFloat(document.getElementById('opening-balance').value) || 0;
+            const closingBalance = openingBalance + totalCashIn - totalCashOut;
             
             const reportHTML = `
-                <h3>📈 Financial Report: ${fromDate} to ${toDate}</h3>
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">📊 Daily Report - ${today}</h3>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div style="background: #e8f4fc; padding: 15px; border-radius: 5px;">
-                        <h4>💰 Cash Inflows</h4>
-                        <p>Lukat (Redemptions): <strong class="positive">₱${summary.totalLukat.toFixed(2)}</strong></p>
-                        <p>Remate Sales: <strong class="positive">₱${summary.totalRemate.toFixed(2)}</strong></p>
-                        <p>Renewals: <strong class="positive">₱${summary.totalRenew.toFixed(2)}</strong></p>
-                        <p>Direct Sales: <strong class="positive">₱${summary.totalSale.toFixed(2)}</strong></p>
-                        <hr>
-                        <p><strong>Total Cash In: ₱${(summary.totalLukat + summary.totalRemate + summary.totalRenew + summary.totalSale).toFixed(2)}</strong></p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+                        <h4 style="margin-bottom: 10px;">💰 Cash Summary</h4>
+                        <p>Opening Balance: <strong>₱${openingBalance.toFixed(2)}</strong></p>
+                        <p>Total Cash In: <strong class="positive">₱${totalCashIn.toFixed(2)}</strong></p>
+                        <p>Total Cash Out: <strong class="negative">₱${totalCashOut.toFixed(2)}</strong></p>
+                        <p>Closing Balance: <strong>₱${closingBalance.toFixed(2)}</strong></p>
                     </div>
                     
-                    <div style="background: #fce8e8; padding: 15px; border-radius: 5px;">
-                        <h4>💸 Cash Outflows</h4>
-                        <p>New Pawns: <strong class="negative">₱${summary.totalPawn.toFixed(2)}</strong></p>
-                        <hr>
-                        <p><strong>Total Cash Out: ₱${summary.totalPawn.toFixed(2)}</strong></p>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+                        <h4 style="margin-bottom: 10px;">📈 Pawn Operations</h4>
+                        <p>Active Pawns: <strong>${activePawns.length}</strong></p>
+                        <p>Expired Items: <strong class="negative">${expiredPawns.length}</strong></p>
+                        <p>Total Lukat: <strong class="positive">₱${totalLukat.toFixed(2)}</strong></p>
+                        <p>Total Remate: <strong class="negative">₱${totalRemate.toFixed(2)}</strong></p>
                     </div>
-                </div>
-                
-                <div style="background: #f0f8f0; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    <h4>📊 Summary</h4>
-                    <p>Net Cash Flow: <strong class="${netCashFlow >= 0 ? 'positive' : 'negative'}">₱${netCashFlow.toFixed(2)}</strong></p>
-                    <p>Remate Profit: <strong class="positive">₱${summary.remateProfit.toFixed(2)}</strong></p>
-                    <p>Sales Profit: <strong class="positive">₱${summary.saleProfit.toFixed(2)}</strong></p>
-                    <p>Total Profit: <strong class="positive">₱${(summary.remateProfit + summary.saleProfit).toFixed(2)}</strong></p>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
-                    <h4>📋 Transaction Count</h4>
-                    <p>Total Transactions: <strong>${summary.totalTransactions}</strong></p>
-                    <p>New Pawns: ${filteredTransactions.filter(t => t.type === 'pawn').length}</p>
-                    <p>Lukat: ${filteredTransactions.filter(t => t.type === 'lukat').length}</p>
-                    <p>Remate: ${filteredTransactions.filter(t => t.type === 'remate').length}</p>
-                    <p>Renewals: ${filteredTransactions.filter(t => t.type === 'renew').length}</p>
-                    <p>Sales: ${filteredTransactions.filter(t => t.type === 'sale').length}</p>
+                    <h4 style="margin-bottom: 10px;">📋 Today's Transactions</h4>
+                    <p>• New Pawns: ${pawnItems.filter(item => item.pawnDate === today).length}</p>
+                    <p>• Renewals: ${renewTransactions.filter(item => item.renewDate === today).length} (₱${totalRenewals.toFixed(2)})</p>
+                    <p>• Lukat: ${lukatTransactions.filter(item => item.lukatDate === today).length} (₱${totalLukat.toFixed(2)})</p>
+                    <p>• Remate: ${remateTransactions.filter(item => item.remateDate === today).length} (₱${totalRemate.toFixed(2)})</p>
+                    <p>• Direct Sales: ${soldItems.filter(item => item.saleDate === today && !item.isRemate).length} (₱${totalSales.toFixed(2)})</p>
                 </div>
             `;
             
             document.getElementById('report-results').innerHTML = reportHTML;
         }
-        
-        function generateInventoryReport() {
-            const today = new Date();
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(today.getDate() - 30);
-            
-            const activeItems = systemData.data.pawnItems.filter(item => item.status === 'Active');
-            const expiredItems = systemData.data.pawnItems.filter(item => item.status === 'Expired');
-            const foreclosedItems = systemData.data.pawnItems.filter(item => item.status === 'Foreclosed');
-            const auctionedItems = systemData.data.pawnItems.filter(item => item.status === 'Auctioned');
-            
-            const recentItems = systemData.data.pawnItems.filter(item => 
-                new Date(item.pawnDate) >= thirtyDaysAgo
-            );
-            
-            const reportHTML = `
-                <h3>📦 Inventory Report</h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-                    <div style="background: #e8f4fc; padding: 15px; border-radius: 5px; text-align: center;">
-                        <h4>Active Pawns</h4>
-                        <div style="font-size: 2rem; font-weight: bold;">${activeItems.length}</div>
-                        <div>₱${activeItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="background: #fff8e8; padding: 15px; border-radius: 5px; text-align: center;">
-                        <h4>Expired Items</h4>
-                        <div style="font-size: 2rem; font-weight: bold;" class="negative">${expiredItems.length}</div>
-                        <div>₱${expiredItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="background: #fce8e8; padding: 15px; border-radius: 5px; text-align: center;">
-                        <h4>Foreclosed</h4>
-                        <div style="font-size: 2rem; font-weight: bold;">${foreclosedItems.length}</div>
-                        <div>₱${foreclosedItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="background: #f0f8f0; padding: 15px; border-radius: 5px; text-align: center;">
-                        <h4>Auctioned</h4>
-                        <div style="font-size: 2rem; font-weight: bold;">${auctionedItems.length}</div>
-                        <div>₱${auctionedItems.reduce((sum, item) => sum + (item.salePrice || 0), 0).toFixed(2)}</div>
-                    </div>
-                </div>
-                
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    <h4>📋 Items by Type</h4>
-                    <table style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>Item Type</th>
-                                <th>Count</th>
-                                <th>Total Value</th>
-                                <th>% of Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${getItemsByType().map(type => `
-                                <tr>
-                                    <td>${type.type}</td>
-                                    <td>${type.count}</td>
-                                    <td>₱${type.value.toFixed(2)}</td>
-                                    <td>${type.percentage}%</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div style="background: #f5f0ff; padding: 15px; border-radius: 5px;">
-                    <h4>📅 Recent Items (Last 30 Days)</h4>
-                    <p>New Pawns: ${recentItems.filter(item => item.status === 'Active').length}</p>
-                    <p>Items Redeemed: ${systemData.data.pawnItems.filter(item => 
-                        item.status === 'Redeemed' && 
-                        new Date(item.redemptionDate) >= thirtyDaysAgo
-                    ).length}</p>
-                    <p>Items Foreclosed: ${systemData.data.pawnItems.filter(item => 
-                        item.status === 'Foreclosed' && 
-                        new Date(item.remateDate) >= thirtyDaysAgo
-                    ).length}</p>
-                </div>
-            `;
-            
-            document.getElementById('report-results').innerHTML = reportHTML;
-        }
-        
-        function getItemsByType() {
-            const types = {};
-            
-            systemData.data.pawnItems.forEach(item => {
-                if (!types[item.itemType]) {
-                    types[item.itemType] = { count: 0, value: 0 };
-                }
-                types[item.itemType].count++;
-                types[item.itemType].value += item.pawnAmount;
-            });
-            
-            const totalValue = Object.values(types).reduce((sum, type) => sum + type.value, 0);
-            
-            return Object.entries(types).map(([type, data]) => ({
-                type,
-                count: data.count,
-                value: data.value,
-                percentage: totalValue > 0 ? ((data.value / totalValue) * 100).toFixed(1) : '0.0'
-            }));
-        }
-        
+
         function generateRemateReport() {
-            const remateItems = systemData.data.pawnItems.filter(item => item.isRemate);
-            const foreclosedItems = remateItems.filter(item => item.status === 'Foreclosed');
-            const auctionedItems = remateItems.filter(item => item.status === 'Auctioned');
+            const today = new Date().toISOString().split('T')[0];
+            const remateItems = pawnItems.filter(item => item.isRemate);
+            const foreclosedItems = pawnItems.filter(item => item.status === 'Foreclosed');
             
             const reportHTML = `
-                <h3>⚖️ Remate/Foreclosure Report</h3>
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">⚖️ Remate/Foreclosure Report - ${today}</h3>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div style="background: #fce8e8; padding: 15px; border-radius: 5px;">
-                        <h4>📊 Remate Statistics</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+                        <h4 style="margin-bottom: 10px;">📊 Remate Statistics</h4>
                         <p>Total Remate Items: <strong>${remateItems.length}</strong></p>
                         <p>Currently Foreclosed: <strong class="negative">${foreclosedItems.length}</strong></p>
-                        <p>Auctioned Items: <strong>${auctionedItems.length}</strong></p>
-                        <p>Total Pawn Value: <strong>₱${remateItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</strong></p>
+                        <p>Remate Sales (Today): <strong>${remateTransactions.filter(item => item.remateDate === today && item.remateType !== 'inventory').length}</strong></p>
+                        <p>Auctioned Items: <strong>${pawnItems.filter(item => item.status === 'Auctioned').length}</strong></p>
                     </div>
                     
-                    <div style="background: #f0f8f0; padding: 15px; border-radius: 5px;">
-                        <h4>💵 Financial Summary</h4>
-                        <p>Remate Sales Revenue: <strong class="positive">₱${auctionedItems.reduce((sum, item) => sum + (item.salePrice || 0), 0).toFixed(2)}</strong></p>
-                        <p>Total Profit: <strong class="positive">₱${auctionedItems.reduce((sum, item) => sum + (item.saleProfit || 0), 0).toFixed(2)}</strong></p>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+                        <h4 style="margin-bottom: 10px;">💵 Remate Financials</h4>
+                        <p>Total Remate Value: <strong>₱${remateItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</strong></p>
+                        <p>Remate Sales Revenue: <strong class="positive">₱${remateTransactions.reduce((sum, item) => sum + (item.salePrice || 0), 0).toFixed(2)}</strong></p>
+                        <p>Remate Profit: <strong class="positive">₱${remateTransactions.reduce((sum, item) => sum + (item.profit || 0), 0).toFixed(2)}</strong></p>
                         <p>Inventory Value: <strong>₱${foreclosedItems.reduce((sum, item) => sum + item.pawnAmount, 0).toFixed(2)}</strong></p>
-                        <p>Average Profit Margin: <strong>${auctionedItems.length > 0 ? ((auctionedItems.reduce((sum, item) => sum + ((item.saleProfit || 0) / item.pawnAmount * 100), 0) / auctionedItems.length).toFixed(1) + '%') : '0%'}</strong></p>
                     </div>
                 </div>
                 
-                <div style="background: #fff8e8; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    <h4>⚠️ Expired Items (Need Action)</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+                    <h4 style="margin-bottom: 10px;">📋 Expired Items (Need Action)</h4>
                     <table style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Code</th>
                                 <th>Item</th>
                                 <th>Amount</th>
-                                <th>Expired On</th>
+                                <th>Expired</th>
                                 <th>Days Overdue</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${systemData.data.pawnItems
-                                .filter(item => item.status === 'Expired')
-                                .slice(0, 10)
-                                .map(item => {
-                                    const daysOverdue = calculateDaysOverdue(item.expiryDate);
-                                    return `
-                                        <tr>
-                                            <td>${item.itemCode}</td>
-                                            <td>${item.itemName}</td>
-                                            <td>₱${item.pawnAmount.toFixed(2)}</td>
-                                            <td>${item.expiryDate}</td>
-                                            <td class="negative">${daysOverdue} days</td>
-                                        </tr>
-                                    `;
-                                }).join('') || '<tr><td colspan="5" style="text-align: center;">No expired items</td></tr>'}
+                            ${pawnItems.filter(item => item.status === 'Expired').slice(0, 10).map(item => {
+                                const expiryDate = new Date(item.expiryDate);
+                                const today = new Date();
+                                const daysOverdue = Math.ceil((today - expiryDate) / (1000 * 60 * 60 * 24));
+                                return `
+                                    <tr>
+                                        <td>${item.itemCode}</td>
+                                        <td>${item.itemName}</td>
+                                        <td>₱${item.pawnAmount.toFixed(2)}</td>
+                                        <td>${item.expiryDate}</td>
+                                        <td><span class="negative">${daysOverdue} days</span></td>
+                                    </tr>
+                                `;
+                            }).join('') || '<tr><td colspan="5" style="text-align: center;">No expired items</td></tr>'}
                         </tbody>
                     </table>
                 </div>
@@ -2471,512 +1749,80 @@
             
             document.getElementById('report-results').innerHTML = reportHTML;
         }
-        
-        function generateDateRangeReport() {
-            generateFinancialReport();
+
+        function printReport() {
+            window.print();
         }
-        
-        // ==================== DATA MANAGEMENT FUNCTIONS ====================
-        function updateDataStats() {
-            console.log('Updating data stats...');
-            
-            // Ensure all arrays exist
-            if (!systemData.data.pawnItems) systemData.data.pawnItems = [];
-            if (!systemData.data.customers) systemData.data.customers = [];
-            if (!systemData.data.transactions) systemData.data.transactions = [];
-            if (!systemData.data.inventory) systemData.data.inventory = [];
-            
-            const stats = [
-                { 
-                    type: 'Pawn Items', 
-                    records: systemData.data.pawnItems.length,
-                    key: 'pawn-items'
-                },
-                { 
-                    type: 'Customers', 
-                    records: systemData.data.customers.length,
-                    key: 'customers'
-                },
-                { 
-                    type: 'Transactions', 
-                    records: systemData.data.transactions.length,
-                    key: 'transactions'
-                },
-                { 
-                    type: 'Inventory Items', 
-                    records: systemData.data.inventory.length,
-                    key: 'inventory-items'
-                }
-            ];
-            
-            const tbody = document.getElementById('data-stats-table');
-            if (!tbody) {
-                console.error('data-stats-table element not found!');
-                return;
-            }
-            
-            tbody.innerHTML = '';
-            
-            stats.forEach(stat => {
-                // Calculate file size
-                let dataToMeasure = [];
-                switch(stat.key) {
-                    case 'pawn-items': dataToMeasure = systemData.data.pawnItems; break;
-                    case 'customers': dataToMeasure = systemData.data.customers; break;
-                    case 'transactions': dataToMeasure = systemData.data.transactions; break;
-                    case 'inventory-items': dataToMeasure = systemData.data.inventory; break;
-                }
+
+        function clearTodayData() {
+            if (confirm('Are you sure you want to clear all cash transactions for today? This will reset cash flow entries but keep item records.')) {
+                // Clear cash transactions
+                document.getElementById('cash-in-container').innerHTML = '';
+                document.getElementById('cash-out-container').innerHTML = '';
                 
-                const size = JSON.stringify(dataToMeasure).length;
+                // Reset cash arrays
+                cashInTransactions = [];
+                cashOutTransactions = [];
+                localStorage.setItem('cashInTransactions', JSON.stringify(cashInTransactions));
+                localStorage.setItem('cashOutTransactions', JSON.stringify(cashOutTransactions));
                 
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${stat.type}</td>
-                    <td>${stat.records}</td>
-                    <td>${systemData.lastBackup ? new Date(systemData.lastBackup).toLocaleDateString() : 'Never'}</td>
-                    <td>${formatFileSize(size)}</td>
-                    <td>
-                        <button class="btn btn-info small-btn" onclick="exportSingle('${stat.key}')">
-                            Export
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-            
-            // Update status message
-            const statusEl = document.getElementById('data-status');
-            if (statusEl) {
-                const totalRecords = stats.reduce((sum, stat) => sum + stat.records, 0);
-                const backupTime = systemData.lastBackup ? new Date(systemData.lastBackup).toLocaleString() : 'Never';
-                statusEl.textContent = `Total: ${totalRecords} records | Last backup: ${backupTime}`;
-                statusEl.className = 'alert alert-success';
-            }
-        }
-        
-        function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + ' bytes';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-        }
-        
-        function exportSingle(dataType) {
-            let data, filename;
-            
-            switch(dataType) {
-                case 'pawn-items':
-                    data = systemData.data.pawnItems;
-                    filename = 'pawn_items';
-                    break;
-                case 'customers':
-                    data = systemData.data.customers;
-                    filename = 'customers';
-                    break;
-                case 'transactions':
-                    data = systemData.data.transactions;
-                    filename = 'transactions';
-                    break;
-                case 'inventory-items':
-                    data = systemData.data.inventory;
-                    filename = 'inventory';
-                    break;
-                default:
-                    console.error('Unknown data type:', dataType);
-                    return;
-            }
-            
-            const exportData = {
-                exportDate: new Date().toISOString(),
-                exportType: dataType,
-                data: data
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `pawnshop_${filename}_${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            URL.revokeObjectURL(url);
-            
-            alert(`Exported ${data.length} ${filename.replace('_', ' ')} to ${link.download}`);
-        }
-        
-        function backupData() {
-            systemData.lastBackup = new Date().toISOString();
-            saveSystemData(systemData);
-            
-            // Create downloadable backup
-            const backup = {
-                ...systemData,
-                exportDate: new Date().toISOString(),
-                exportType: 'full_backup'
-            };
-            
-            const dataStr = JSON.stringify(backup, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `pawnshop_backup_${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            URL.revokeObjectURL(url);
-            
-            const totalRecords = systemData.data.pawnItems.length + 
-                               systemData.data.customers.length + 
-                               systemData.data.transactions.length + 
-                               systemData.data.inventory.length;
-            
-            alert(`Backup completed! File: ${link.download}\nTotal records: ${totalRecords}`);
-            updateDataStats();
-        }
-        
-        function exportToJSON() {
-            const exportData = {
-                exportDate: new Date().toISOString(),
-                exportType: 'complete_export',
-                data: systemData.data
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `pawnshop_export_${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            URL.revokeObjectURL(url);
-            
-            alert(`Exported complete data to ${link.download}`);
-        }
-        
-        function exportToCSV() {
-            // Export pawn items to CSV
-            const headers = ['Code', 'Item Name', 'Type', 'Customer', 'Amount', 'Status', 'Date', 'Expiry Date'];
-            const rows = systemData.data.pawnItems.map(item => [
-                item.itemCode,
-                `"${item.itemName.replace(/"/g, '""')}"`,
-                item.itemType,
-                `"${item.customerName.replace(/"/g, '""')}"`,
-                item.pawnAmount,
-                item.status,
-                item.pawnDate,
-                item.expiryDate || ''
-            ]);
-            
-            const csvContent = [
-                headers.join(','),
-                ...rows.map(row => row.join(','))
-            ].join('\n');
-            
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `pawnshop_inventory_${new Date().toISOString().split('T')[0]}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            URL.revokeObjectURL(url);
-            
-            alert(`Exported ${systemData.data.pawnItems.length} items to CSV file`);
-        }
-        
-        function printAllData() {
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>Sampan Pawn Shop - Data Summary</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        h1 { color: #2c3e50; }
-                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                        th { background-color: #f2f2f2; }
-                    </style>
-                </head>
-                <body>
-                    <h1>Sampan Pawn Shop - Data Summary</h1>
-                    <p>Generated on: ${new Date().toLocaleString()}</p>
-                    
-                    <h2>📊 System Statistics</h2>
-                    <table>
-                        <tr><th>Data Type</th><th>Records</th></tr>
-                        <tr><td>Pawn Items</td><td>${systemData.data.pawnItems.length}</td></tr>
-                        <tr><td>Customers</td><td>${systemData.data.customers.length}</td></tr>
-                        <tr><td>Transactions</td><td>${systemData.data.transactions.length}</td></tr>
-                        <tr><td>Inventory Items</td><td>${systemData.data.inventory.length}</td></tr>
-                    </table>
-                    
-                    <h2>📅 Recent Transactions (Last 7 Days)</h2>
-                    ${generateRecentTransactionsTable()}
-                    
-                    <h2>⚠️ Expired Items</h2>
-                    ${generateExpiredItemsTable()}
-                    
-                    <script>
-                        window.onload = function() {
-                            window.print();
-                            setTimeout(function() { window.close(); }, 1000);
-                        }
-                    </script>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-        }
-        
-        function generateRecentTransactionsTable() {
-            const sevenDaysAgo = new Date();
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            
-            const recentTransactions = systemData.data.transactions.filter(t => 
-                new Date(t.date) >= sevenDaysAgo
-            ).slice(0, 20);
-            
-            if (recentTransactions.length === 0) {
-                return '<p>No recent transactions</p>';
-            }
-            
-            let html = '<table><tr><th>Date</th><th>Type</th><th>Code</th><th>Description</th><th>Amount</th></tr>';
-            
-            recentTransactions.forEach(t => {
-                html += `<tr>
-                    <td>${t.date}</td>
-                    <td>${t.type}</td>
-                    <td>${t.code}</td>
-                    <td>${t.description}</td>
-                    <td>₱${t.amount.toFixed(2)}</td>
-                </tr>`;
-            });
-            
-            html += '</table>';
-            return html;
-        }
-        
-        function generateExpiredItemsTable() {
-            const expiredItems = systemData.data.pawnItems.filter(item => 
-                item.status === 'Expired'
-            ).slice(0, 20);
-            
-            if (expiredItems.length === 0) {
-                return '<p>No expired items</p>';
-            }
-            
-            let html = '<table><tr><th>Code</th><th>Item</th><th>Customer</th><th>Amount</th><th>Expired On</th></tr>';
-            
-            expiredItems.forEach(item => {
-                html += `<tr>
-                    <td>${item.itemCode}</td>
-                    <td>${item.itemName}</td>
-                    <td>${item.customerName}</td>
-                    <td>₱${item.pawnAmount.toFixed(2)}</td>
-                    <td>${item.expiryDate}</td>
-                </tr>`;
-            });
-            
-            html += '</table>';
-            return html;
-        }
-        
-        function clearOldData() {
-            if (confirm('This will remove transactions older than 1 year. Continue?')) {
-                const oneYearAgo = new Date();
-                oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-                const oneYearAgoStr = oneYearAgo.toISOString().split('T')[0];
+                // Add default rows back
+                addCashInRow();
+                addCashInRow();
+                addCashOutRow();
+                addCashOutRow();
                 
-                const oldCount = systemData.data.transactions.length;
-                systemData.data.transactions = systemData.data.transactions.filter(t => 
-                    t.date >= oneYearAgoStr
-                );
-                const newCount = systemData.data.transactions.length;
-                
-                saveSystemData(systemData);
-                alert(`Cleared ${oldCount - newCount} old transactions. Remaining: ${newCount}`);
-                updateDataStats();
-                loadTransactions();
+                calculateTotals();
+                alert('Today\'s cash data cleared!');
             }
         }
-        
+
         // ==================== UTILITY FUNCTIONS ====================
-        function updateCashPosition(amount) {
-            // Update the display
-            loadDailyOverview();
-        }
-        
-        function checkExpiredItems() {
-            const today = new Date(currentDate);
-            let updated = false;
-            
-            systemData.data.pawnItems.forEach(item => {
-                if (item.status === 'Active' && item.expiryDate) {
-                    const expiryDate = new Date(item.expiryDate);
-                    if (expiryDate < today) {
-                        item.status = 'Expired';
-                        updated = true;
-                    }
+        function setupEventListeners() {
+            // Auto-calculate lukat total
+            document.getElementById('lukat-interest-rate').addEventListener('change', function() {
+                const itemCode = document.getElementById('lukat-item-code').value;
+                const item = pawnItems.find(p => p.itemCode === itemCode);
+                if (item) {
+                    const interestRate = parseFloat(this.value);
+                    const interestAmount = item.pawnAmount * (interestRate / 100);
+                    const totalAmount = item.pawnAmount + interestAmount;
+                    document.getElementById('lukat-total-amount').value = totalAmount.toFixed(2);
                 }
             });
             
-            if (updated) {
-                saveSystemData(systemData);
-                loadAttentionItems();
-                loadInventory();
-            }
-        }
-        
-        function autoSave() {
-            saveSystemData(systemData);
-            // Could show a temporary notification
-        }
-        
-        function viewItemDetails(itemId) {
-            const item = systemData.data.pawnItems.find(i => i.id === itemId);
-            if (!item) return;
+            // Auto-update totals when opening balance changes
+            document.getElementById('opening-balance').addEventListener('input', calculateTotals);
             
-            let details = `
-                Item Details:
-                Code: ${item.itemCode}
-                Name: ${item.itemName}
-                Type: ${item.itemType}
-                Customer: ${item.customerName}
-                Amount: ₱${item.pawnAmount.toFixed(2)}
-                Status: ${item.status}
-                Pawn Date: ${item.pawnDate}
-                Expiry Date: ${item.expiryDate}
-            `;
-            
-            if (item.status === 'Redeemed' && item.redemptionDate) {
-                details += `\nRedemption Date: ${item.redemptionDate}`;
-                if (item.redemptionAmount) {
-                    details += `\nRedemption Amount: ₱${item.redemptionAmount.toFixed(2)}`;
+            // Auto-save cash transactions
+            document.getElementById('cash-in-container').addEventListener('input', saveCashTransactions);
+            document.getElementById('cash-out-container').addEventListener('input', saveCashTransactions);
+        }
+
+        function saveCashTransactions() {
+            // Save cash in transactions
+            const cashInRows = document.querySelectorAll('#cash-in-container .transaction-row');
+            cashInTransactions = [];
+            cashInRows.forEach(row => {
+                const desc = row.querySelector('.cash-in-desc').value;
+                const amount = parseFloat(row.querySelector('.cash-in-amount').value) || 0;
+                if (desc && amount > 0) {
+                    cashInTransactions.push({ description: desc, amount: amount });
                 }
-            }
+            });
+            localStorage.setItem('cashInTransactions', JSON.stringify(cashInTransactions));
             
-            if (item.status === 'Foreclosed' && item.remateDate) {
-                details += `\nForeclosure Date: ${item.remateDate}`;
-                if (item.inventoryValue) {
-                    details += `\nInventory Value: ₱${item.inventoryValue.toFixed(2)}`;
+            // Save cash out transactions
+            const cashOutRows = document.querySelectorAll('#cash-out-container .transaction-row');
+            cashOutTransactions = [];
+            cashOutRows.forEach(row => {
+                const desc = row.querySelector('.cash-out-desc').value;
+                const amount = parseFloat(row.querySelector('.cash-out-amount').value) || 0;
+                if (desc && amount > 0) {
+                    cashOutTransactions.push({ description: desc, amount: amount });
                 }
-            }
-            
-            if (item.status === 'Auctioned') {
-                if (item.remateDate) details += `\nSale Date: ${item.remateDate}`;
-                if (item.salePrice) details += `\nSale Price: ₱${item.salePrice.toFixed(2)}`;
-                if (item.saleProfit) details += `\nProfit: ₱${item.saleProfit.toFixed(2)}`;
-            }
-            
-            if (item.remarks) details += `\nRemarks: ${item.remarks}`;
-            
-            alert(details);
-        }
-        
-        function viewTransactionDetails(transactionId) {
-            const transaction = systemData.data.transactions.find(t => t.id === transactionId);
-            if (!transaction) return;
-            
-            let details = `
-                Transaction Details:
-                ID: ${transaction.id}
-                Date: ${transaction.date}
-                Type: ${transaction.type.toUpperCase()}
-                Code: ${transaction.code}
-                Description: ${transaction.description}
-                Amount: ₱${transaction.amount.toFixed(2)}
-                Customer: ${transaction.customerName}
-                Status: ${transaction.status}
-            `;
-            
-            if (transaction.interestRate) details += `\nInterest Rate: ${transaction.interestRate}%`;
-            if (transaction.paymentMethod) details += `\nPayment Method: ${transaction.paymentMethod}`;
-            if (transaction.remateType) details += `\nRemate Type: ${transaction.remateType}`;
-            if (transaction.profit) details += `\nProfit: ₱${transaction.profit.toFixed(2)}`;
-            
-            alert(details);
-        }
-        
-        function viewCustomerDetails(customerId) {
-            const customer = systemData.data.customers.find(c => c.id === customerId);
-            if (!customer) return;
-            
-            const customerPawns = systemData.data.pawnItems.filter(item => 
-                item.customerId === customerId
-            );
-            
-            const activePawns = customerPawns.filter(item => item.status === 'Active');
-            const totalPawnAmount = customerPawns.reduce((sum, item) => sum + item.pawnAmount, 0);
-            
-            alert(`
-                Customer Details:
-                ID: ${customer.id}
-                Name: ${customer.name}
-                Contact: ${customer.contact}
-                ${customer.email ? `Email: ${customer.email}` : ''}
-                Address: ${customer.address}
-                ID Type: ${customer.idType}
-                ID Number: ${customer.idNumber}
-                Member Since: ${customer.createdAt}
-                Last Visit: ${customer.lastVisit}
-                
-                Statistics:
-                Total Transactions: ${customer.totalTransactions || 0}
-                Total Amount: ₱${customer.totalAmount?.toFixed(2) || '0.00'}
-                Active Pawns: ${activePawns.length}
-                Total Pawn History: ${customerPawns.length} items
-                Total Pawn Amount: ₱${totalPawnAmount.toFixed(2)}
-            `);
-        }
-        
-        function editCustomer(customerId) {
-            alert('Edit customer functionality would open here');
-            // Implementation would open a modal for editing customer details
-        }
-        
-        // ==================== GITHUB INTEGRATION HELPER ====================
-        function setupGitHubInstructions() {
-            // This function would provide instructions for GitHub integration
-            console.log(`
-                GitHub Integration Instructions:
-                
-                1. Create a GitHub repository for your pawn shop data
-                2. Use the Export functions to download your data
-                3. Upload the JSON files to your repository
-                4. Create a README.md file with instructions
-                5. Commit changes regularly
-                
-                Best Practices:
-                - Export data daily
-                - Keep backup files in the repository
-                - Use meaningful commit messages
-                - Include date in filenames
-            `);
-        }
-        
-        // Debug function
-        function debugSystem() {
-            console.log('=== SYSTEM DEBUG INFO ===');
-            console.log('Current Date:', currentDate);
-            console.log('System Data:', systemData);
-            console.log('Pawn Items:', systemData.data.pawnItems);
-            console.log('Customers:', systemData.data.customers);
-            console.log('Transactions:', systemData.data.transactions);
-            console.log('Inventory:', systemData.data.inventory);
-            console.log('=========================');
+            });
+            localStorage.setItem('cashOutTransactions', JSON.stringify(cashOutTransactions));
         }
     </script>
 </body>
