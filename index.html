@@ -361,6 +361,7 @@
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
+            border: 1px solid transparent;
         }
         
         .alert-success {
@@ -373,6 +374,18 @@
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeeba;
         }
         
         .modal {
@@ -420,6 +433,12 @@
             font-size: 0.9rem;
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
+        }
+        
+        .small-btn {
+            padding: 5px 10px !important;
+            font-size: 0.8em !important;
+            margin: 2px !important;
         }
         
         @media print {
@@ -871,9 +890,9 @@
                 pawnItems: [],          // All pawn items with full history
                 customers: [],          // Customer database
                 transactions: [],       // All financial transactions
+                inventory: [],          // Current inventory (foreclosed items)
                 
                 // Additional tracking
-                inventory: [],          // Current inventory (foreclosed items)
                 dailyLogs: [],          // Daily operation logs
                 settings: {             // System settings
                     shopName: "Sampan Pawn Shop",
@@ -893,118 +912,180 @@
             const savedData = localStorage.getItem('pawnshopData');
             
             if (savedData) {
-                const parsed = JSON.parse(savedData);
-                // Check if data structure needs migration
-                if (parsed.version !== DATA_STRUCTURE.version) {
-                    return migrateData(parsed);
+                try {
+                    const parsed = JSON.parse(savedData);
+                    // Check if data structure needs migration
+                    if (parsed.version !== DATA_STRUCTURE.version) {
+                        return migrateData(parsed);
+                    }
+                    return parsed;
+                } catch (e) {
+                    console.error('Error parsing saved data:', e);
+                    return createSampleData();
                 }
-                return parsed;
             } else {
-                // Initialize with sample data for demonstration
-                const newData = JSON.parse(JSON.stringify(DATA_STRUCTURE));
-                newData.lastBackup = new Date().toISOString();
-                
-                // Add sample customers
-                newData.data.customers = [
-                    {
-                        id: "CUST-001",
-                        name: "Juan Dela Cruz",
-                        contact: "09171234567",
-                        address: "123 Main St, Manila",
-                        createdAt: currentDate,
-                        totalTransactions: 3,
-                        totalAmount: 25000,
-                        lastVisit: currentDate
-                    },
-                    {
-                        id: "CUST-002",
-                        name: "Maria Santos",
-                        contact: "09221234567",
-                        address: "456 Oak St, Quezon City",
-                        createdAt: currentDate,
-                        totalTransactions: 2,
-                        totalAmount: 15000,
-                        lastVisit: currentDate
-                    }
-                ];
-                
-                // Add sample pawn items
-                newData.data.pawnItems = [
-                    {
-                        id: "P-001",
-                        itemCode: "P-001",
-                        itemName: "Gold Ring 18k",
-                        itemType: "Jewelry",
-                        weight: 10.5,
-                        karat: 18,
-                        pawnAmount: 15000,
-                        termDays: 30,
-                        customerId: "CUST-001",
-                        customerName: "Juan Dela Cruz",
-                        pawnDate: currentDate,
-                        expiryDate: addDays(currentDate, 30),
-                        status: "Active",
-                        isRemate: false,
-                        renewalCount: 0,
-                        transactionHistory: []
-                    },
-                    {
-                        id: "P-002",
-                        itemCode: "P-002",
-                        itemName: "iPhone 13 Pro",
-                        itemType: "Electronics",
-                        pawnAmount: 20000,
-                        termDays: 30,
-                        customerId: "CUST-002",
-                        customerName: "Maria Santos",
-                        pawnDate: currentDate,
-                        expiryDate: addDays(currentDate, 30),
-                        status: "Active",
-                        isRemate: false,
-                        renewalCount: 0,
-                        transactionHistory: []
-                    }
-                ];
-                
-                // Add sample transactions
-                newData.data.transactions = [
-                    {
-                        id: "TXN-001",
-                        date: currentDate,
-                        type: "pawn",
-                        code: "P-001",
-                        description: "New Pawn - Gold Ring",
-                        amount: 15000,
-                        customerId: "CUST-001",
-                        customerName: "Juan Dela Cruz",
-                        status: "completed"
-                    },
-                    {
-                        id: "TXN-002",
-                        date: currentDate,
-                        type: "pawn",
-                        code: "P-002",
-                        description: "New Pawn - iPhone",
-                        amount: 20000,
-                        customerId: "CUST-002",
-                        customerName: "Maria Santos",
-                        status: "completed"
-                    }
-                ];
-                
-                saveSystemData(newData);
-                return newData;
+                return createSampleData();
             }
+        }
+
+        function createSampleData() {
+            // Initialize with sample data for demonstration
+            const newData = JSON.parse(JSON.stringify(DATA_STRUCTURE));
+            newData.lastBackup = new Date().toISOString();
+            
+            // Add sample customers
+            newData.data.customers = [
+                {
+                    id: "CUST-001",
+                    name: "Juan Dela Cruz",
+                    contact: "09171234567",
+                    email: "juan@example.com",
+                    address: "123 Main St, Manila",
+                    idType: "Driver's License",
+                    idNumber: "DL123456",
+                    createdAt: currentDate,
+                    totalTransactions: 3,
+                    totalAmount: 25000,
+                    lastVisit: currentDate,
+                    notes: ""
+                },
+                {
+                    id: "CUST-002",
+                    name: "Maria Santos",
+                    contact: "09221234567",
+                    email: "maria@example.com",
+                    address: "456 Oak St, Quezon City",
+                    idType: "Passport",
+                    idNumber: "PP789012",
+                    createdAt: currentDate,
+                    totalTransactions: 2,
+                    totalAmount: 15000,
+                    lastVisit: currentDate,
+                    notes: ""
+                }
+            ];
+            
+            // Add sample pawn items
+            const expiryDate1 = addDays(currentDate, 30);
+            const expiryDate2 = addDays(currentDate, 15);
+            
+            newData.data.pawnItems = [
+                {
+                    id: "P-001",
+                    itemCode: "P-001",
+                    itemName: "Gold Ring 18k",
+                    itemType: "Jewelry",
+                    weight: 10.5,
+                    karat: 18,
+                    pawnAmount: 15000,
+                    termDays: 30,
+                    customerId: "CUST-001",
+                    customerName: "Juan Dela Cruz",
+                    pawnDate: currentDate,
+                    expiryDate: expiryDate1,
+                    status: "Active",
+                    isRemate: false,
+                    renewalCount: 0,
+                    remarks: "With certificate",
+                    transactionHistory: []
+                },
+                {
+                    id: "P-002",
+                    itemCode: "P-002",
+                    itemName: "iPhone 13 Pro",
+                    itemType: "Electronics",
+                    pawnAmount: 20000,
+                    termDays: 30,
+                    customerId: "CUST-002",
+                    customerName: "Maria Santos",
+                    pawnDate: currentDate,
+                    expiryDate: expiryDate2,
+                    status: "Active",
+                    isRemate: false,
+                    renewalCount: 0,
+                    remarks: "256GB, space gray",
+                    transactionHistory: []
+                },
+                {
+                    id: "P-003",
+                    itemCode: "P-003",
+                    itemName: "Laptop Dell XPS",
+                    itemType: "Electronics",
+                    pawnAmount: 30000,
+                    termDays: 30,
+                    customerId: "CUST-001",
+                    customerName: "Juan Dela Cruz",
+                    pawnDate: addDays(currentDate, -10),
+                    expiryDate: addDays(currentDate, -5),
+                    status: "Expired",
+                    isRemate: false,
+                    renewalCount: 0,
+                    remarks: "16GB RAM, 512GB SSD",
+                    transactionHistory: []
+                }
+            ];
+            
+            // Add sample transactions
+            newData.data.transactions = [
+                {
+                    id: "TXN-001",
+                    date: currentDate,
+                    time: "09:30",
+                    type: "pawn",
+                    code: "P-001",
+                    description: "New Pawn - Gold Ring",
+                    amount: 15000,
+                    customerId: "CUST-001",
+                    customerName: "Juan Dela Cruz",
+                    status: "completed"
+                },
+                {
+                    id: "TXN-002",
+                    date: currentDate,
+                    time: "10:15",
+                    type: "pawn",
+                    code: "P-002",
+                    description: "New Pawn - iPhone",
+                    amount: 20000,
+                    customerId: "CUST-002",
+                    customerName: "Maria Santos",
+                    status: "completed"
+                },
+                {
+                    id: "TXN-003",
+                    date: addDays(currentDate, -10),
+                    time: "14:20",
+                    type: "pawn",
+                    code: "P-003",
+                    description: "New Pawn - Laptop",
+                    amount: 30000,
+                    customerId: "CUST-001",
+                    customerName: "Juan Dela Cruz",
+                    status: "completed"
+                }
+            ];
+            
+            // Initialize empty inventory
+            newData.data.inventory = [];
+            
+            saveSystemData(newData);
+            return newData;
         }
         
         function migrateData(oldData) {
-            // Simple migration logic - can be expanded based on needs
+            // Simple migration logic
             const newData = JSON.parse(JSON.stringify(DATA_STRUCTURE));
             
             // Migrate old data to new structure
-            if (oldData.pawnItems) newData.data.pawnItems = oldData.pawnItems;
-            if (oldData.customers) newData.data.customers = oldData.customers;
-            if (oldData.transactions) newData.data.transactions = oldData.transactions;
+            if (oldData.data && oldData.data.pawnItems) newData.data.pawnItems = oldData.data.pawnItems;
+            if (oldData.data && oldData.data.customers) newData.data.customers = oldData.data.customers;
+            if (oldData.data && oldData.data.transactions) newData.data.transactions = oldData.data.transactions;
+            if (oldData.data && oldData.data.inventory) newData.data.inventory = oldData.data.inventory;
+            
+            // Handle old structure
+            if (oldData.pawnItems && !oldData.data) newData.data.pawnItems = oldData.pawnItems;
+            if (oldData.customers && !oldData.data) newData.data.customers = oldData.customers;
+            if (oldData.transactions && !oldData.data) newData.data.transactions = oldData.transactions;
             
             newData.lastBackup = oldData.lastBackup || new Date().toISOString();
             saveSystemData(newData);
@@ -1026,13 +1107,14 @@
         // ==================== UI INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', function() {
             // Set current date
-            document.getElementById('current-date').textContent = currentDate;
+            document.getElementById('current-date').textContent = formatDateForDisplay(currentDate);
             document.getElementById('current-year').textContent = new Date().getFullYear();
             
             // Set default report dates
-            document.getElementById('report-from-date').value = currentDate;
-            document.getElementById('report-to-date').value = currentDate;
-            document.getElementById('transactions-date').value = currentDate;
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('report-from-date').value = addDays(today, -30);
+            document.getElementById('report-to-date').value = today;
+            document.getElementById('transactions-date').value = today;
             
             // Load initial data
             loadDailyOverview();
@@ -1043,11 +1125,21 @@
             updateDataStats();
             
             // Setup auto-save
-            setInterval(autoSave, 30000); // Auto-save every 30 seconds
+            setInterval(autoSave, 30000);
             
-            // Check for expired items daily
+            // Check for expired items
             checkExpiredItems();
         });
+        
+        function formatDateForDisplay(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
         
         // ==================== TAB MANAGEMENT ====================
         function showTab(tabName) {
@@ -1071,6 +1163,8 @@
             switch(tabName) {
                 case 'daily':
                     loadDailyOverview();
+                    loadTodayTransactions();
+                    loadAttentionItems();
                     break;
                 case 'inventory':
                     loadInventory();
@@ -1414,7 +1508,7 @@
         function calculateDaysOverdue(expiryDate) {
             const today = new Date(currentDate);
             const expiry = new Date(expiryDate);
-            const diffTime = today - expiry;
+            const diffTime = expiry - today;
             return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         }
         
@@ -1438,6 +1532,12 @@
             const customer = systemData.data.customers.find(c => c.id === customerId);
             if (!customer) {
                 alert('Customer not found');
+                return;
+            }
+            
+            // Check if item code already exists
+            if (systemData.data.pawnItems.some(item => item.itemCode === itemCode)) {
+                alert('Item code already exists. Please use a different code.');
                 return;
             }
             
@@ -1469,6 +1569,7 @@
             const transaction = {
                 id: 'TXN-' + Date.now(),
                 date: currentDate,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                 type: 'pawn',
                 code: itemCode,
                 description: `New Pawn - ${itemName}`,
@@ -1496,6 +1597,7 @@
             loadDailyOverview();
             loadTodayTransactions();
             loadAttentionItems();
+            loadInventory();
             
             alert(`Pawn item added successfully!\nCode: ${itemCode}\nAmount: ₱${pawnAmount.toFixed(2)}\nExpiry: ${newItem.expiryDate}`);
         }
@@ -1541,6 +1643,7 @@
             const transaction = {
                 id: 'TXN-' + Date.now(),
                 date: currentDate,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                 type: 'lukat',
                 code: item.itemCode,
                 description: `Lukat - ${item.itemName}`,
@@ -1554,6 +1657,13 @@
             
             systemData.data.transactions.push(transaction);
             
+            // Update customer stats
+            const customer = systemData.data.customers.find(c => c.id === item.customerId);
+            if (customer) {
+                customer.totalTransactions = (customer.totalTransactions || 0) + 1;
+                customer.lastVisit = currentDate;
+            }
+            
             // Update cash position (cash in)
             updateCashPosition(totalAmount);
             
@@ -1565,6 +1675,7 @@
             loadDailyOverview();
             loadTodayTransactions();
             loadAttentionItems();
+            loadInventory();
             
             alert(`Lukat processed successfully!\nTotal received: ₱${totalAmount.toFixed(2)}`);
         }
@@ -1599,7 +1710,7 @@
             // Update item based on remate type
             if (remateType === 'inventory') {
                 item.status = "Foreclosed";
-                item.inventoryDate = currentDate;
+                item.remateDate = currentDate;
                 item.inventoryValue = salePrice || item.pawnAmount;
                 
                 // Add to inventory
@@ -1615,14 +1726,13 @@
                 });
             } else {
                 item.status = "Auctioned";
-                item.saleDate = currentDate;
+                item.remateDate = currentDate;
                 item.salePrice = salePrice;
                 item.saleBuyer = buyer;
                 item.saleProfit = salePrice - item.pawnAmount;
             }
             
             item.isRemate = true;
-            item.remateDate = currentDate;
             item.remateType = remateType;
             item.remateRemarks = remarks;
             
@@ -1639,6 +1749,7 @@
             const transaction = {
                 id: 'TXN-' + Date.now(),
                 date: currentDate,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                 type: 'remate',
                 code: item.itemCode,
                 description: `Remate (${remateType}) - ${item.itemName}`,
@@ -1720,6 +1831,9 @@
                 customerSelect.appendChild(option);
             }
             
+            // Refresh customers tab
+            loadCustomers();
+            
             alert('Customer added successfully!');
         }
         
@@ -1772,7 +1886,13 @@
             const tbody = document.getElementById('today-transactions-table').querySelector('tbody');
             const todayTransactions = systemData.data.transactions
                 .filter(t => t.date === today)
-                .sort((a, b) => new Date(b.date + 'T' + (b.time || '00:00:00')) - new Date(a.date + 'T' + (a.time || '00:00:00')));
+                .sort((a, b) => {
+                    // Sort by time if available, otherwise by date
+                    if (a.time && b.time) {
+                        return a.time.localeCompare(b.time);
+                    }
+                    return 0;
+                });
             
             tbody.innerHTML = '';
             
@@ -1821,7 +1941,7 @@
                     <td>${typeIcon} ${transaction.type.toUpperCase()}</td>
                     <td><strong>${transaction.code}</strong></td>
                     <td>${transaction.description}</td>
-                    <td class="${typeClass}">${transaction.type === 'pawn' ? '-' : ''}₱${transaction.amount.toFixed(2)}</td>
+                    <td class="${typeClass}">${transaction.type === 'pawn' ? '-' : '+'}₱${transaction.amount.toFixed(2)}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -1979,6 +2099,9 @@
                         ${item.status === 'Active' ? `
                             <button class="btn btn-success small-btn" onclick="showModal('lukat-modal')">Lukat</button>
                         ` : ''}
+                        ${item.status === 'Expired' ? `
+                            <button class="btn btn-danger small-btn" onclick="showModal('remate-modal')">Remate</button>
+                        ` : ''}
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -2011,7 +2134,15 @@
             }
             
             // Sort by date (newest first)
-            filteredTransactions.sort((a, b) => new Date(b.date + 'T' + (b.time || '00:00:00')) - new Date(a.date + 'T' + (a.time || '00:00:00')));
+            filteredTransactions.sort((a, b) => {
+                if (a.date !== b.date) {
+                    return new Date(b.date) - new Date(a.date);
+                }
+                if (a.time && b.time) {
+                    return b.time.localeCompare(a.time);
+                }
+                return 0;
+            });
             
             tbody.innerHTML = '';
             
@@ -2039,7 +2170,7 @@
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${transaction.date}</td>
+                    <td>${transaction.date} ${transaction.time ? transaction.time : ''}</td>
                     <td>${typeIcon} ${transaction.type.toUpperCase()}</td>
                     <td><strong>${transaction.code}</strong></td>
                     <td>${transaction.description}</td>
@@ -2366,25 +2497,65 @@
         
         // ==================== DATA MANAGEMENT FUNCTIONS ====================
         function updateDataStats() {
+            console.log('Updating data stats...');
+            
+            // Ensure all arrays exist
+            if (!systemData.data.pawnItems) systemData.data.pawnItems = [];
+            if (!systemData.data.customers) systemData.data.customers = [];
+            if (!systemData.data.transactions) systemData.data.transactions = [];
+            if (!systemData.data.inventory) systemData.data.inventory = [];
+            
             const stats = [
-                { type: 'Pawn Items', records: systemData.data.pawnItems.length, size: JSON.stringify(systemData.data.pawnItems).length },
-                { type: 'Customers', records: systemData.data.customers.length, size: JSON.stringify(systemData.data.customers).length },
-                { type: 'Transactions', records: systemData.data.transactions.length, size: JSON.stringify(systemData.data.transactions).length },
-                { type: 'Inventory Items', records: systemData.data.inventory.length, size: JSON.stringify(systemData.data.inventory).length }
+                { 
+                    type: 'Pawn Items', 
+                    records: systemData.data.pawnItems.length,
+                    key: 'pawn-items'
+                },
+                { 
+                    type: 'Customers', 
+                    records: systemData.data.customers.length,
+                    key: 'customers'
+                },
+                { 
+                    type: 'Transactions', 
+                    records: systemData.data.transactions.length,
+                    key: 'transactions'
+                },
+                { 
+                    type: 'Inventory Items', 
+                    records: systemData.data.inventory.length,
+                    key: 'inventory-items'
+                }
             ];
             
             const tbody = document.getElementById('data-stats-table');
+            if (!tbody) {
+                console.error('data-stats-table element not found!');
+                return;
+            }
+            
             tbody.innerHTML = '';
             
             stats.forEach(stat => {
+                // Calculate file size
+                let dataToMeasure = [];
+                switch(stat.key) {
+                    case 'pawn-items': dataToMeasure = systemData.data.pawnItems; break;
+                    case 'customers': dataToMeasure = systemData.data.customers; break;
+                    case 'transactions': dataToMeasure = systemData.data.transactions; break;
+                    case 'inventory-items': dataToMeasure = systemData.data.inventory; break;
+                }
+                
+                const size = JSON.stringify(dataToMeasure).length;
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${stat.type}</td>
                     <td>${stat.records}</td>
                     <td>${systemData.lastBackup ? new Date(systemData.lastBackup).toLocaleDateString() : 'Never'}</td>
-                    <td>${formatFileSize(stat.size)}</td>
+                    <td>${formatFileSize(size)}</td>
                     <td>
-                        <button class="btn btn-info small-btn" onclick="exportSingle('${stat.type.toLowerCase().replace(' ', '-')}')">
+                        <button class="btn btn-info small-btn" onclick="exportSingle('${stat.key}')">
                             Export
                         </button>
                     </td>
@@ -2394,14 +2565,65 @@
             
             // Update status message
             const statusEl = document.getElementById('data-status');
-            const totalRecords = stats.reduce((sum, stat) => sum + stat.records, 0);
-            statusEl.textContent = `Total: ${totalRecords} records | Last backup: ${systemData.lastBackup ? new Date(systemData.lastBackup).toLocaleString() : 'Never'}`;
+            if (statusEl) {
+                const totalRecords = stats.reduce((sum, stat) => sum + stat.records, 0);
+                const backupTime = systemData.lastBackup ? new Date(systemData.lastBackup).toLocaleString() : 'Never';
+                statusEl.textContent = `Total: ${totalRecords} records | Last backup: ${backupTime}`;
+                statusEl.className = 'alert alert-success';
+            }
         }
         
         function formatFileSize(bytes) {
             if (bytes < 1024) return bytes + ' bytes';
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+        
+        function exportSingle(dataType) {
+            let data, filename;
+            
+            switch(dataType) {
+                case 'pawn-items':
+                    data = systemData.data.pawnItems;
+                    filename = 'pawn_items';
+                    break;
+                case 'customers':
+                    data = systemData.data.customers;
+                    filename = 'customers';
+                    break;
+                case 'transactions':
+                    data = systemData.data.transactions;
+                    filename = 'transactions';
+                    break;
+                case 'inventory-items':
+                    data = systemData.data.inventory;
+                    filename = 'inventory';
+                    break;
+                default:
+                    console.error('Unknown data type:', dataType);
+                    return;
+            }
+            
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                exportType: dataType,
+                data: data
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pawnshop_${filename}_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            URL.revokeObjectURL(url);
+            
+            alert(`Exported ${data.length} ${filename.replace('_', ' ')} to ${link.download}`);
         }
         
         function backupData() {
@@ -2422,11 +2644,18 @@
             const link = document.createElement('a');
             link.href = url;
             link.download = `pawnshop_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             
             URL.revokeObjectURL(url);
             
-            alert(`Backup completed! File: ${link.download}\nTotal records: ${systemData.data.pawnItems.length + systemData.data.customers.length + systemData.data.transactions.length}`);
+            const totalRecords = systemData.data.pawnItems.length + 
+                               systemData.data.customers.length + 
+                               systemData.data.transactions.length + 
+                               systemData.data.inventory.length;
+            
+            alert(`Backup completed! File: ${link.download}\nTotal records: ${totalRecords}`);
             updateDataStats();
         }
         
@@ -2444,9 +2673,13 @@
             const link = document.createElement('a');
             link.href = url;
             link.download = `pawnshop_export_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             
             URL.revokeObjectURL(url);
+            
+            alert(`Exported complete data to ${link.download}`);
         }
         
         function exportToCSV() {
@@ -2473,51 +2706,13 @@
             const link = document.createElement('a');
             link.href = url;
             link.download = `pawnshop_inventory_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             
             URL.revokeObjectURL(url);
-        }
-        
-        function exportSingle(dataType) {
-            let data, filename;
             
-            switch(dataType) {
-                case 'pawn-items':
-                    data = systemData.data.pawnItems;
-                    filename = 'pawn_items';
-                    break;
-                case 'customers':
-                    data = systemData.data.customers;
-                    filename = 'customers';
-                    break;
-                case 'transactions':
-                    data = systemData.data.transactions;
-                    filename = 'transactions';
-                    break;
-                case 'inventory-items':
-                    data = systemData.data.inventory;
-                    filename = 'inventory';
-                    break;
-                default:
-                    return;
-            }
-            
-            const exportData = {
-                exportDate: new Date().toISOString(),
-                exportType: dataType,
-                data: data
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `pawnshop_${filename}_${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            URL.revokeObjectURL(url);
+            alert(`Exported ${systemData.data.pawnItems.length} items to CSV file`);
         }
         
         function printAllData() {
@@ -2633,13 +2828,13 @@
                 saveSystemData(systemData);
                 alert(`Cleared ${oldCount - newCount} old transactions. Remaining: ${newCount}`);
                 updateDataStats();
+                loadTransactions();
             }
         }
         
         // ==================== UTILITY FUNCTIONS ====================
         function updateCashPosition(amount) {
-            // This would update the cash position in the system
-            // For now, we'll just update the display
+            // Update the display
             loadDailyOverview();
         }
         
@@ -2666,14 +2861,14 @@
         
         function autoSave() {
             saveSystemData(systemData);
-            // Show auto-save notification (could be implemented)
+            // Could show a temporary notification
         }
         
         function viewItemDetails(itemId) {
             const item = systemData.data.pawnItems.find(i => i.id === itemId);
             if (!item) return;
             
-            alert(`
+            let details = `
                 Item Details:
                 Code: ${item.itemCode}
                 Name: ${item.itemName}
@@ -2683,17 +2878,38 @@
                 Status: ${item.status}
                 Pawn Date: ${item.pawnDate}
                 Expiry Date: ${item.expiryDate}
-                ${item.status === 'Redeemed' ? `Redemption Date: ${item.redemptionDate}` : ''}
-                ${item.status === 'Foreclosed' ? `Foreclosure Date: ${item.remateDate}` : ''}
-                ${item.status === 'Auctioned' ? `Sale Price: ₱${item.salePrice.toFixed(2)}` : ''}
-            `);
+            `;
+            
+            if (item.status === 'Redeemed' && item.redemptionDate) {
+                details += `\nRedemption Date: ${item.redemptionDate}`;
+                if (item.redemptionAmount) {
+                    details += `\nRedemption Amount: ₱${item.redemptionAmount.toFixed(2)}`;
+                }
+            }
+            
+            if (item.status === 'Foreclosed' && item.remateDate) {
+                details += `\nForeclosure Date: ${item.remateDate}`;
+                if (item.inventoryValue) {
+                    details += `\nInventory Value: ₱${item.inventoryValue.toFixed(2)}`;
+                }
+            }
+            
+            if (item.status === 'Auctioned') {
+                if (item.remateDate) details += `\nSale Date: ${item.remateDate}`;
+                if (item.salePrice) details += `\nSale Price: ₱${item.salePrice.toFixed(2)}`;
+                if (item.saleProfit) details += `\nProfit: ₱${item.saleProfit.toFixed(2)}`;
+            }
+            
+            if (item.remarks) details += `\nRemarks: ${item.remarks}`;
+            
+            alert(details);
         }
         
         function viewTransactionDetails(transactionId) {
             const transaction = systemData.data.transactions.find(t => t.id === transactionId);
             if (!transaction) return;
             
-            alert(`
+            let details = `
                 Transaction Details:
                 ID: ${transaction.id}
                 Date: ${transaction.date}
@@ -2703,11 +2919,14 @@
                 Amount: ₱${transaction.amount.toFixed(2)}
                 Customer: ${transaction.customerName}
                 Status: ${transaction.status}
-                ${transaction.interestRate ? `Interest Rate: ${transaction.interestRate}%` : ''}
-                ${transaction.paymentMethod ? `Payment Method: ${transaction.paymentMethod}` : ''}
-                ${transaction.remateType ? `Remate Type: ${transaction.remateType}` : ''}
-                ${transaction.profit ? `Profit: ₱${transaction.profit.toFixed(2)}` : ''}
-            `);
+            `;
+            
+            if (transaction.interestRate) details += `\nInterest Rate: ${transaction.interestRate}%`;
+            if (transaction.paymentMethod) details += `\nPayment Method: ${transaction.paymentMethod}`;
+            if (transaction.remateType) details += `\nRemate Type: ${transaction.remateType}`;
+            if (transaction.profit) details += `\nProfit: ₱${transaction.profit.toFixed(2)}`;
+            
+            alert(details);
         }
         
         function viewCustomerDetails(customerId) {
@@ -2765,6 +2984,18 @@
                 - Use meaningful commit messages
                 - Include date in filenames
             `);
+        }
+        
+        // Debug function
+        function debugSystem() {
+            console.log('=== SYSTEM DEBUG INFO ===');
+            console.log('Current Date:', currentDate);
+            console.log('System Data:', systemData);
+            console.log('Pawn Items:', systemData.data.pawnItems);
+            console.log('Customers:', systemData.data.customers);
+            console.log('Transactions:', systemData.data.transactions);
+            console.log('Inventory:', systemData.data.inventory);
+            console.log('=========================');
         }
     </script>
 </body>
