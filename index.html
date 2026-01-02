@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sampan Pawn Shop - Complete Management System with Remate Tracking</title>
+    <title>Sampan Pawnshop and Jewelry - Complete Management System and Tracking </title>
     <style>
         /* KEEP ALL YOUR CSS STYLES HERE - THEY ARE CORRECT */
         * {
@@ -895,6 +895,52 @@
     </div>
     
     <!-- JavaScript -->
+    // ==================== ADDITIONAL TESTING FUNCTIONS ====================
+
+function testExpiration(itemCode, expiryDate) {
+    // Manually test expiration logic for a specific item
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const testExpiry = new Date(expiryDate);
+    testExpiry.setHours(0, 0, 0, 0);
+    
+    const timeDiff = testExpiry.getTime() - today.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    
+    console.log(`Test Expiration Check:`);
+    console.log(`Today: ${today.toDateString()}`);
+    console.log(`Expiry Date: ${testExpiry.toDateString()}`);
+    console.log(`Days Difference: ${daysDiff}`);
+    console.log(`Is Expired: ${daysDiff < 0}`);
+    
+    return daysDiff;
+}
+
+function manualExpirationCheck() {
+    console.log("=== MANUAL EXPIRATION CHECK ===");
+    console.log(`Total pawn items: ${pawnItems.length}`);
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    pawnItems.forEach((item, index) => {
+        if (item.expiryDate) {
+            const expiryDate = new Date(item.expiryDate);
+            expiryDate.setHours(0, 0, 0, 0);
+            
+            const timeDiff = expiryDate.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            console.log(`${index + 1}. ${item.itemCode}: ${item.itemName}`);
+            console.log(`   Status: ${item.status}, Expiry: ${item.expiryDate}`);
+            console.log(`   Days diff: ${daysDiff}, Should be expired: ${daysDiff < 0}`);
+        }
+    });
+    
+    alert("Check console for expiration details");
+    return checkExpirations();
+}
     <script>
         // ==================== DATA STORAGE ====================
         let pawnItems = JSON.parse(localStorage.getItem('pawnItems')) || [];
@@ -1379,39 +1425,82 @@
             }
         }
 
-        // ==================== CHECK EXPIRATIONS ====================
-        function checkExpirations() {
-            const today = new Date().toISOString().split('T')[0];
-            let expiredCount = 0;
-            let expiringSoonCount = 0;
+       // ==================== CHECK EXPIRATIONS ====================
+function checkExpirations() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set to start of day to avoid timezone issues
+    
+    let expiredCount = 0;
+    let expiringSoonCount = 0;
+    let changedItems = false;
+    
+    pawnItems.forEach(item => {
+        if (item.status === 'Active' && item.expiryDate) {
+            // Parse expiry date correctly
+            const expiryDate = new Date(item.expiryDate);
+            expiryDate.setHours(0, 0, 0, 0);
             
-            pawnItems.forEach(item => {
-                if (item.status === 'Active' && item.expiryDate) {
-                    const expiryDate = new Date(item.expiryDate);
-                    const todayDate = new Date(today);
-                    const daysDiff = Math.ceil((expiryDate - todayDate) / (1000 * 60 * 60 * 24));
-                    
-                    if (daysDiff < 0) {
-                        item.status = 'Expired';
-                        expiredCount++;
-                    } else if (daysDiff <= 3) {
-                        expiringSoonCount++;
-                    }
-                }
-            });
+            // Calculate days difference
+            const timeDiff = expiryDate.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
             
-            if (expiredCount > 0) {
-                localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
-                loadPawnItems('active');
-                alert(`⚠️ ${expiredCount} item(s) have expired and marked as "Expired"!\nCheck the Expired tab.`);
+            console.log(`Item ${item.itemCode}: expiryDate=${item.expiryDate}, daysDiff=${daysDiff}`);
+            
+            if (daysDiff < 0) {
+                // Item has expired
+                item.status = 'Expired';
+                expiredCount++;
+                changedItems = true;
+                console.log(`Marked ${item.itemCode} as expired`);
+            } else if (daysDiff <= 3) {
+                // Item is expiring soon
+                expiringSoonCount++;
             }
-            
-            if (expiringSoonCount > 0) {
-                console.log(`${expiringSoonCount} item(s) expiring in 3 days or less`);
-            }
-            
-            return expiredCount;
         }
+    });
+    
+    if (changedItems) {
+        localStorage.setItem('pawnItems', JSON.stringify(pawnItems));
+        loadPawnItems('active');
+        
+        // Show notification
+        const notification = `
+            <div style="background-color: #f39c12; color: white; padding: 15px; border-radius: 5px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+                <span>⚠️ ${expiredCount} item(s) have expired and marked as "Expired"!</span>
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">×</button>
+            </div>
+        `;
+        
+        // Insert notification at top of container
+        const container = document.querySelector('.container');
+        container.insertAdjacentHTML('afterbegin', notification);
+        
+        // Auto-switch to expired tab
+        showPawnTab('expired');
+        
+        // Also update the dashboard immediately
+        loadDashboard();
+    }
+    
+    if (expiringSoonCount > 0) {
+        console.log(`${expiringSoonCount} item(s) expiring in 3 days or less`);
+        
+        // Optional: Show a less urgent notification for items expiring soon
+        if (expiringSoonCount > 0 && expiredCount === 0) {
+            const notification = `
+                <div style="background-color: #f1c40f; color: white; padding: 10px; border-radius: 5px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+                    <span>ℹ️ ${expiringSoonCount} item(s) expiring in 3 days or less</span>
+                    <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer;">×</button>
+                </div>
+            `;
+            
+            const container = document.querySelector('.container');
+            container.insertAdjacentHTML('afterbegin', notification);
+        }
+    }
+    
+    return expiredCount;
+}
 
         // ==================== CASH FLOW MANAGEMENT ====================
         function addToCashIn(description, amount) {
