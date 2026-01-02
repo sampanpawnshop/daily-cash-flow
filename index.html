@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Cash Flow Sheet</title>
+    <title>Pawn Shop Daily Cash Flow Sheet</title>
     <style>
         * {
             margin: 0;
@@ -36,12 +36,19 @@
             margin-bottom: 10px;
         }
         
+        .shop-name {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
         .date-section {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .date-box {
@@ -136,6 +143,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-top: 10px;
         }
         
         .add-button:hover {
@@ -246,6 +254,14 @@
             border-top: 1px solid #e0e0e0;
         }
         
+        .category-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
         @media print {
             body {
                 background: white;
@@ -267,7 +283,8 @@
     <div class="container">
         <header>
             <h1>Daily Cash Flow Sheet</h1>
-            <p>Track daily cash inflows and outflows to monitor financial position</p>
+            <div class="shop-name">Sampan Pawn Shop</div>
+            <p>Track daily cash inflows and outflows for pawn shop operations</p>
             
             <div class="date-section">
                 <div class="date-box">
@@ -276,7 +293,7 @@
                 </div>
                 <div class="date-box">
                     <label for="prepared-by">Prepared By:</label>
-                    <input type="text" id="prepared-by" placeholder="Your Name">
+                    <input type="text" id="prepared-by" placeholder="Staff Name">
                 </div>
             </div>
         </header>
@@ -284,87 +301,137 @@
         <div class="sheet-container">
             <div class="section cash-in-section">
                 <div class="section-title">
-                    <span>Cash Inflows</span>
-                    <button class="add-button" id="add-cash-in">
-                        <span>+</span> Add Item
-                    </button>
+                    <span>Cash Inflows (Pumasok na Pera)</span>
+                </div>
+                
+                <div class="category-item">
+                    <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Standard Pawn Shop Categories:</div>
+                    <div style="font-size: 0.9em; color: #666;">Sales • Renew • Lukat • Additional Cash</div>
                 </div>
                 
                 <div id="cash-in-container">
+                    <!-- Sales -->
                     <div class="transaction-row">
                         <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" class="cash-in-desc" placeholder="Sales, Receivables, etc." value="Sales Revenue">
+                            <label>Sales</label>
+                            <input type="text" class="cash-in-desc" value="Sales - Various Items" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Amount ($)</label>
-                            <input type="number" class="cash-in-amount" placeholder="0.00" value="1250.50" min="0" step="0.01">
+                            <label>Amount (₱)</label>
+                            <input type="number" class="cash-in-amount" placeholder="0.00" value="0" min="0" step="0.01">
                         </div>
                         <button class="delete-btn" onclick="deleteRow(this)">×</button>
                     </div>
                     
+                    <!-- Renew -->
                     <div class="transaction-row">
                         <div class="form-group">
-                            <input type="text" class="cash-in-desc" placeholder="Sales, Receivables, etc." value="Loan Proceeds">
+                            <input type="text" class="cash-in-desc" value="Renew - Interest Payments" readonly>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="cash-in-amount" placeholder="0.00" value="500.00" min="0" step="0.01">
+                            <input type="number" class="cash-in-amount" placeholder="0.00" value="0" min="0" step="0.01">
+                        </div>
+                        <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                    </div>
+                    
+                    <!-- Lukat -->
+                    <div class="transaction-row">
+                        <div class="form-group">
+                            <input type="text" class="cash-in-desc" value="Lukat - Item Redemptions" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="cash-in-amount" placeholder="0.00" value="0" min="0" step="0.01">
+                        </div>
+                        <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                    </div>
+                    
+                    <!-- Additional Cash -->
+                    <div class="transaction-row">
+                        <div class="form-group">
+                            <input type="text" class="cash-in-desc" value="Additional Cash - Other Income" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="cash-in-amount" placeholder="0.00" value="0" min="0" step="0.01">
                         </div>
                         <button class="delete-btn" onclick="deleteRow(this)">×</button>
                     </div>
                 </div>
                 
+                <button class="add-button" id="add-cash-in">
+                    <span>+</span> Add Custom Cash In
+                </button>
+                
                 <div class="summary-item">
                     <div class="summary-label">Total Cash In</div>
-                    <div class="summary-value cash-in" id="total-cash-in">$1,750.50</div>
+                    <div class="summary-value cash-in" id="total-cash-in">₱0.00</div>
                 </div>
             </div>
             
             <div class="section cash-out-section">
                 <div class="section-title">
-                    <span>Cash Outflows</span>
-                    <button class="add-button" id="add-cash-out">
-                        <span>+</span> Add Item
-                    </button>
+                    <span>Cash Outflows (Labas na Pera)</span>
+                </div>
+                
+                <div class="category-item">
+                    <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Standard Pawn Shop Categories:</div>
+                    <div style="font-size: 0.9em; color: #666;">Expenses • Prenda • Scrap Gold • Scrap Silver</div>
                 </div>
                 
                 <div id="cash-out-container">
+                    <!-- Expenses -->
                     <div class="transaction-row">
                         <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" class="cash-out-desc" placeholder="Expenses, Purchases, etc." value="Inventory Purchase">
+                            <label>Expenses</label>
+                            <input type="text" class="cash-out-desc" value="Expenses - Utilities, Rent, etc." readonly>
                         </div>
                         <div class="form-group">
-                            <label>Amount ($)</label>
-                            <input type="number" class="cash-out-amount" placeholder="0.00" value="450.75" min="0" step="0.01">
+                            <label>Amount (₱)</label>
+                            <input type="number" class="cash-out-amount" placeholder="0.00" value="0" min="0" step="0.01">
                         </div>
                         <button class="delete-btn" onclick="deleteRow(this)">×</button>
                     </div>
                     
+                    <!-- Prenda -->
                     <div class="transaction-row">
                         <div class="form-group">
-                            <input type="text" class="cash-out-desc" placeholder="Expenses, Purchases, etc." value="Rent Expense">
+                            <input type="text" class="cash-out-desc" value="Prenda - New Pawns" readonly>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="cash-out-amount" placeholder="0.00" value="300.00" min="0" step="0.01">
+                            <input type="number" class="cash-out-amount" placeholder="0.00" value="0" min="0" step="0.01">
                         </div>
                         <button class="delete-btn" onclick="deleteRow(this)">×</button>
                     </div>
                     
+                    <!-- Scrap Gold -->
                     <div class="transaction-row">
                         <div class="form-group">
-                            <input type="text" class="cash-out-desc" placeholder="Expenses, Purchases, etc." value="Utilities">
+                            <input type="text" class="cash-out-desc" value="Scrap Gold Purchases" readonly>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="cash-out-amount" placeholder="0.00" value="85.25" min="0" step="0.01">
+                            <input type="number" class="cash-out-amount" placeholder="0.00" value="0" min="0" step="0.01">
+                        </div>
+                        <button class="delete-btn" onclick="deleteRow(this)">×</button>
+                    </div>
+                    
+                    <!-- Scrap Silver -->
+                    <div class="transaction-row">
+                        <div class="form-group">
+                            <input type="text" class="cash-out-desc" value="Scrap Silver Purchases" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="cash-out-amount" placeholder="0.00" value="0" min="0" step="0.01">
                         </div>
                         <button class="delete-btn" onclick="deleteRow(this)">×</button>
                     </div>
                 </div>
                 
+                <button class="add-button" id="add-cash-out">
+                    <span>+</span> Add Custom Cash Out
+                </button>
+                
                 <div class="summary-item">
                     <div class="summary-label">Total Cash Out</div>
-                    <div class="summary-value cash-out" id="total-cash-out">$836.00</div>
+                    <div class="summary-value cash-out" id="total-cash-out">₱0.00</div>
                 </div>
             </div>
             
@@ -375,32 +442,32 @@
                 
                 <div class="summary-item">
                     <div class="summary-label">Opening Balance</div>
-                    <div class="summary-value" id="opening-balance">$1,250.00</div>
+                    <div class="summary-value">₱<input type="number" id="opening-balance" value="5000.00" style="width: 120px; text-align: right; border: none; font-weight: bold; font-size: 1.1rem;"></div>
                 </div>
                 
                 <div class="summary-item">
                     <div class="summary-label">Total Cash In</div>
-                    <div class="summary-value cash-in" id="summary-cash-in">$1,750.50</div>
+                    <div class="summary-value cash-in" id="summary-cash-in">₱0.00</div>
                 </div>
                 
                 <div class="summary-item">
                     <div class="summary-label">Total Cash Out</div>
-                    <div class="summary-value cash-out" id="summary-cash-out">$836.00</div>
+                    <div class="summary-value cash-out" id="summary-cash-out">₱0.00</div>
                 </div>
                 
                 <div class="summary-item net-cash">
                     <div class="summary-label">Net Cash Flow</div>
-                    <div class="summary-value" id="net-cash-flow">$914.50</div>
+                    <div class="summary-value" id="net-cash-flow">₱0.00</div>
                 </div>
                 
                 <div class="summary-item net-cash">
                     <div class="summary-label">Closing Balance</div>
-                    <div class="summary-value" id="closing-balance">$2,164.50</div>
+                    <div class="summary-value" id="closing-balance">₱5,000.00</div>
                 </div>
                 
                 <div class="form-group" style="margin-top: 25px;">
                     <label for="notes">Notes / Comments</label>
-                    <textarea id="notes" rows="4" placeholder="Add any notes about today's cash flow..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">Good sales day with higher than average revenue. Paid monthly rent expense.</textarea>
+                    <textarea id="notes" rows="4" placeholder="Add any notes about today's transactions..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"></textarea>
                 </div>
             </div>
         </div>
@@ -411,7 +478,7 @@
         </div>
         
         <footer>
-            <p>Daily Cash Flow Sheet &copy; <span id="current-year"></span> | Update daily to maintain accurate cash position tracking</p>
+            <p>Sampan Pawn Shop Daily Cash Flow Sheet &copy; <span id="current-year"></span> | Update daily for accurate cash tracking</p>
         </footer>
     </div>
 
@@ -439,23 +506,23 @@
             
             // Add cash in button
             document.getElementById('add-cash-in').addEventListener('click', function() {
-                addTransactionRow('cash-in-container', 'cash-in-desc', 'cash-in-amount');
+                addTransactionRow('cash-in-container', 'cash-in-desc', 'cash-in-amount', 'Custom Income');
             });
             
             // Add cash out button
             document.getElementById('add-cash-out').addEventListener('click', function() {
-                addTransactionRow('cash-out-container', 'cash-out-desc', 'cash-out-amount');
+                addTransactionRow('cash-out-container', 'cash-out-desc', 'cash-out-amount', 'Custom Expense');
             });
         }
         
-        function addTransactionRow(containerId, descClass, amountClass) {
+        function addTransactionRow(containerId, descClass, amountClass, defaultDesc) {
             const container = document.getElementById(containerId);
             const row = document.createElement('div');
             row.className = 'transaction-row';
             
             row.innerHTML = `
                 <div class="form-group">
-                    <input type="text" class="${descClass}" placeholder="${containerId === 'cash-in-container' ? 'Sales, Receivables, etc.' : 'Expenses, Purchases, etc.'}">
+                    <input type="text" class="${descClass}" value="${defaultDesc}">
                 </div>
                 <div class="form-group">
                     <input type="number" class="${amountClass}" placeholder="0.00" min="0" step="0.01">
@@ -471,8 +538,14 @@
         
         function deleteRow(button) {
             const row = button.closest('.transaction-row');
-            row.remove();
-            calculateTotals();
+            // Don't delete the standard categories (first 4 rows)
+            const allRows = row.parentElement.querySelectorAll('.transaction-row');
+            if (allRows.length > 4) {
+                row.remove();
+                calculateTotals();
+            } else {
+                alert("Cannot delete standard pawn shop categories. You can only delete custom entries.");
+            }
         }
         
         function calculateTotals() {
@@ -493,15 +566,15 @@
             });
             
             // Get opening balance
-            const openingBalance = parseFloat(document.getElementById('opening-balance').textContent.replace('$', '').replace(',', '')) || 0;
+            const openingBalance = parseFloat(document.getElementById('opening-balance').value) || 0;
             
             // Calculate net cash flow and closing balance
             const netCashFlow = totalCashIn - totalCashOut;
             const closingBalance = openingBalance + netCashFlow;
             
-            // Format numbers with commas
+            // Format numbers with commas and peso sign
             const formatCurrency = (num) => {
-                return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                return '₱' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             };
             
             // Update display
@@ -534,29 +607,34 @@
         }
         
         function resetForm() {
-            if (confirm("Are you sure you want to reset for a new day? This will clear all transaction entries.")) {
-                // Clear cash in rows except first one
+            if (confirm("Reset for a new day? This will clear all amounts but keep the categories. Closing balance will become tomorrow's opening balance.")) {
+                // Clear amounts but keep categories
+                const cashInInputs = document.querySelectorAll('.cash-in-amount');
+                cashInInputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                const cashOutInputs = document.querySelectorAll('.cash-out-amount');
+                cashOutInputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                // Remove custom rows only (keep first 4 standard categories)
                 const cashInContainer = document.getElementById('cash-in-container');
-                const firstCashInRow = cashInContainer.querySelector('.transaction-row');
-                cashInContainer.innerHTML = '';
-                cashInContainer.appendChild(firstCashInRow);
-                
-                // Clear cash out rows except first one
                 const cashOutContainer = document.getElementById('cash-out-container');
-                const firstCashOutRow = cashOutContainer.querySelector('.transaction-row');
-                cashOutContainer.innerHTML = '';
-                cashOutContainer.appendChild(firstCashOutRow);
                 
-                // Reset values in first rows
-                cashInContainer.querySelector('.cash-in-desc').value = '';
-                cashInContainer.querySelector('.cash-in-amount').value = '';
+                // Remove extra rows beyond the first 4
+                while (cashInContainer.querySelectorAll('.transaction-row').length > 4) {
+                    cashInContainer.lastElementChild.remove();
+                }
                 
-                cashOutContainer.querySelector('.cash-out-desc').value = '';
-                cashOutContainer.querySelector('.cash-out-amount').value = '';
+                while (cashOutContainer.querySelectorAll('.transaction-row').length > 4) {
+                    cashOutContainer.lastElementChild.remove();
+                }
                 
                 // Set opening balance to yesterday's closing balance
-                const closingBalance = document.getElementById('closing-balance').textContent;
-                document.getElementById('opening-balance').textContent = closingBalance;
+                const closingBalance = document.getElementById('closing-balance').textContent.replace('₱', '').replace(/,/g, '');
+                document.getElementById('opening-balance').value = parseFloat(closingBalance).toFixed(2);
                 
                 // Clear notes
                 document.getElementById('notes').value = '';
@@ -567,8 +645,13 @@
                 const tomorrow = today.toISOString().split('T')[0];
                 document.getElementById('date').value = tomorrow;
                 
+                // Clear prepared by
+                document.getElementById('prepared-by').value = '';
+                
                 // Recalculate
                 calculateTotals();
+                
+                alert("Form reset for new day! Enter today's transactions.");
             }
         }
     </script>
